@@ -4,3 +4,4 @@ Cached Messages/*
 *.code-workspace
 commands/utility/__pycache__/*
 commands/fun/__pycache__/*
+backups/*
