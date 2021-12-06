@@ -5,8 +5,8 @@
 ![](https://i.imgur.com/vqnPeji.png)  
 
 ## Nuked
-Version 6.0 [x]
-130+ commands [x]
-Fast [x]
-Easy to set up and use [x]
-Complete rewrite [x]
+- [x] Version 6.0
+- [x] 130+ commands
+- [x] Easy to use
+- [x] Fast
+- [x] Complete rewrite
