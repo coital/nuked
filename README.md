@@ -5,4 +5,4 @@
 - Easy to use
 - Up to 2-5 times faster than previous versions
 
-![](https://i.imgur.com/vqnPeji.png)  
+![](https://i.imgur.com/UqYuBch.png)  
