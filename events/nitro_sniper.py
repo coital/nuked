@@ -3,8 +3,6 @@ from colorama import Fore, Style
 from discord.ext import commands
 from modules import util
 from modules import logging
-from win10toast import ToastNotifier
-toaster = ToastNotifier()
 
 with open("./config.json") as f:
     config = json.load(f)
@@ -40,10 +38,7 @@ class NitroSniper(commands.Cog):
                             print(
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}A valid nitro code sent by {message.author} was sniped: {Fore.LIGHTGREEN_EX}{code}{Fore.RESET}. ({math.floor((end - start) * 1000)} ms)")
                             await logging.send_data(f"\n[{util.get_time()}] A valid nitro code sent by {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)", "nitro")
-                            toaster.show_toast(
-                                            "Nuked",
-                                            f"Successfully claimed a nitro code sent by {message.author}.",
-                                            duration=10)
+                            util.toast_message(f"Successfully claimed a nitro code sent by {message.author}.")
                         elif "Unknown Gift Code" in text:
                             print(
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}An invalid nitro code sent by {message.author} was sniped: {Style.DIM}{code}{Style.RESET_ALL}. ({math.floor((end - start) * 1000)} ms)")

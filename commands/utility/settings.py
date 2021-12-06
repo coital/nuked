@@ -40,7 +40,6 @@ class Settings(commands.Cog):
         embed.add_field(name="**Nitro Sniper**", value="on" if nitrosniper else "off", inline=True)
         embed.add_field(name="**Default Prefix**", value=default_prefix, inline=True)
         embed.add_field(name="**Nitro Logger (Webhook)**", value="on" if nitro_logger_enabled else "off", inline=True)
-        embed.add_field(name="‎", value="‎", inline=False)
         embed.add_field(name="**Theme**", value="default (v6)", inline=True)
         await ctx.send(embed=embed, delete_after=20)
         

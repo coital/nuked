@@ -1,9 +1,6 @@
 import discord, json, re, time, aiohttp
-from colorama import Fore, Style
 from discord.ext import commands
 from modules import util
-from win10toast import ToastNotifier
-toaster = ToastNotifier()
 
 def setup(bot: commands.Bot):
     bot.add_cog(CommandError(bot))

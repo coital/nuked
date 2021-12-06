@@ -1,9 +1,6 @@
 import discord, json, re, time, aiohttp, math
-from colorama import Fore, Style
 from discord.ext import commands
 from modules import util
-from win10toast import ToastNotifier
-toaster = ToastNotifier()
 
 with open("./config.json") as f:
     config = json.load(f)

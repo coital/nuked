@@ -17,7 +17,6 @@ util.check_for_update()
 
 class Nuked(commands.Bot):
     async def on_connect(self):
-        self.remove_command("help")
         await self.change_presence(activity=None, status=discord.Status.dnd)
         for command in util.load_commands():
             self.load_extension(command)
@@ -36,5 +35,5 @@ class Nuked(commands.Bot):
 
 
 
-client = Nuked(command_prefix=".", self_bot=True) 
+client = Nuked(command_prefix=".", help_command=None, self_bot=True) 
 client.run(token)
