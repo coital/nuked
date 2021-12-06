@@ -2,6 +2,7 @@
 *.json
 **/venv-nuked/*
 *.code-workspace
+*.gitignore
 commands/utility/__pycache__/bump.cpython-39.pyc
 commands/utility/__pycache__/bump.cpython-310.pyc
 commands/utility/__pycache__/cacheall.cpython-39.pyc
