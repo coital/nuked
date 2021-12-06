@@ -2,5 +2,11 @@
 
 
 # Nuked
-Nuked v6.0    
-![](https://i.imgur.com/vqnPeji.png)
+![](https://i.imgur.com/vqnPeji.png)  
+
+- Nuked
+  - Version 6.0
+  - 130+ commands
+  - Fast
+  - Easy to set up and use
+  - Complete rewrite
