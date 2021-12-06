@@ -11,7 +11,6 @@ version = "v6.0"
 version_float = 6.0
 
 
-
 def clear():
     os.system("clear" if os.name != "nt" else "cls")
 
@@ -73,7 +72,11 @@ def presplash():
     clear()
 
 def splash():
-    functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.random, fade.water]
+    with open("./config.json") as f:
+        config = json.load(f)
+    functions = [fade.purpleblue]
+    if config["Random Splash Color"]:
+        functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.random, fade.water]
     splash = random.choice(functions)("""                        
                                       ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
                                       ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗

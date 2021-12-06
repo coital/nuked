@@ -24,6 +24,7 @@ def init():
                     "Enable Slotbot Sniper": True,
                     "Enable Nitro Sniper": True,
                     "Automatically Check for Updates": True,
+                    "Random Splash Color": False,
                     "Logging": {
                         "Nitro Logger": ""
                     }
