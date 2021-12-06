@@ -8,14 +8,13 @@ with open("./config.json") as f:
 def setup(bot: commands.Bot):
     bot.add_cog(SlotbotSniper(bot))
 
-slotbot = config.get("slotbot_sniper")
-token = config.get("token")
+slotbot = config["Enable Slotbot Sniper"]
 
 class SlotbotSniper(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
     @commands.Cog.listener("on_message")
-    async def on_message(self, message: discord.Message):
+    async def _(self, message: discord.Message):
         if message.author.id == 346353957029019648:
             if slotbot:
                 if "Hurry and pick it up with" in message.content:

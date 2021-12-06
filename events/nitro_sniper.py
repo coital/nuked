@@ -10,14 +10,14 @@ with open("./config.json") as f:
 def setup(bot: commands.Bot):
     bot.add_cog(NitroSniper(bot))
 
-nitrosniper = config.get("nitro_sniper")
-token = config.get("token")
+nitrosniper = config["Enable Nitro Sniper"]
+token = config["Discord Token"]
 
 class NitroSniper(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
     @commands.Cog.listener("on_message")
-    async def on_message(self, message: discord.Message):
+    async def _(self, message: discord.Message):
         if "discord.gift/" in message.content:
             if nitrosniper:
                 code = re.search("discord.gift/(.*)", message.content).group(1)

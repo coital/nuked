@@ -6,7 +6,7 @@ from modules import util
 with open("./config.json") as f:
     config = json.load(f)
 
-nitro_logging = config.get["Logging"]["Nitro Logger"]
+nitro_logging = config["Logging"]["Nitro Logger"]
 
 
 async def send_data(data: str = None, category: str = None):

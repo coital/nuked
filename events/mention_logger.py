@@ -16,8 +16,8 @@ def setup(bot: commands.Bot):
 class MentionLogger(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
-    @commands.Cog.listener()
-    async def on_message(self, message):
+    @commands.Cog.listener("on_message")
+    async def _(self, message):
         if mention_logger:
             if message.author == self.client.user:
                 return

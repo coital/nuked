@@ -62,6 +62,9 @@ def load_commands() -> Dict:
     for file in os.listdir("./commands/"):
         if file.endswith(".py"):
             commands_dict.append(f"commands.{file[:-3]}")
+    for file in os.listdir("./events/"):
+        if file.endswith(".py"):
+            commands_dict.append(f"events.{file[:-3]}")
     return commands_dict
 
 def presplash():
