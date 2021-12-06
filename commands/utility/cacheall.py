@@ -3,7 +3,7 @@ from modules import util
 from discord.ext import commands
 
 def setup(bot: commands.Bot):
-        bot.add_cog(CacheAll(bot))
+    bot.add_cog(CacheAll(bot))
 
 bad_chars = r"[\\/\*\|<>:\"]"
 

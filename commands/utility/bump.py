@@ -3,7 +3,7 @@ from discord.ext import commands
 from modules import util
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Bump(bot))
+    bot.add_cog(Bump(bot))
 
 class Bump(commands.Cog):
     @commands.command()

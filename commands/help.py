@@ -5,7 +5,7 @@ from modules import util
 # copied just a little bit from v5, shhh
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Help(bot))
+    bot.add_cog(Help(bot))
 
 class Help(commands.Cog):
     def __init__(self, bot: commands.Bot):

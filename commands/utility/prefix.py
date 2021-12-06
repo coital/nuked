@@ -3,7 +3,7 @@ from modules import util
 from discord.ext import commands
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Prefix(bot))
+    bot.add_cog(Prefix(bot))
 
 class Prefix(commands.Cog):
     def __init__(self, bot):

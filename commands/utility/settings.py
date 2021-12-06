@@ -3,7 +3,7 @@ from discord.ext import commands
 from modules import util
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Settings(bot))
+    bot.add_cog(Settings(bot))
 
 with open("./config.json") as f:
     config = json.load(f)

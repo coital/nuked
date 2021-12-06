@@ -3,7 +3,7 @@ from modules import util
 from discord.ext import commands
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Latency(bot))
+    bot.add_cog(Latency(bot))
 
 class Latency(commands.Cog):
     def __init__(self, bot):

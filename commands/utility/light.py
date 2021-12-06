@@ -3,7 +3,7 @@ from discord.ext import commands
 from modules import util
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Light(bot))
+    bot.add_cog(Light(bot))
 
 class Light(commands.Cog):
     def __init__(self, bot: commands.Bot):

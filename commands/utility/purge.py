@@ -3,7 +3,7 @@ from modules import util
 from discord.ext import commands
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Purge(bot))
+    bot.add_cog(Purge(bot))
 
 class Purge(commands.Cog):
     def __init__(self, bot):

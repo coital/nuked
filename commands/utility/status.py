@@ -4,7 +4,7 @@ from modules import util
 from discord import ActivityType
 
 def setup(bot: commands.Bot):
-        bot.add_cog(Status(bot))
+    bot.add_cog(Status(bot))
 
 class Status(commands.Cog):
     def __init__(self, bot: commands.Bot):
