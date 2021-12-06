@@ -1,4 +1,4 @@
-import os, discord, json, ctypes, asyncio, time
+import discord, json, ctypes, time, cursor
 from modules import util, init
 from discord.ext import commands
 init.init()
@@ -12,8 +12,12 @@ rich_presence = config["Discord Rich Presence"]
 
 if rich_presence:
     util.setup_rich_presence()
+# util.check_for_update()
 
-util.check_for_update()
+try:
+    cursor.hide()
+except:
+    pass
 
 class Nuked(commands.Bot):
     async def on_connect(self):
