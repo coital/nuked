@@ -1,7 +1,7 @@
 # Nuked
 ![](https://i.imgur.com/vqnPeji.png)  
 
-## Nuked
+### Nuked
 - Version 6.0
 - 130+ commands
 - Easy to use
