@@ -1,7 +1,6 @@
 
 
-### Nuked
-- Version 6.0
+### Nuked v6
 - 130+ commands
 - Easy to use
 - Complete rewrite
