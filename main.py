@@ -13,7 +13,7 @@ rich_presence = config["Discord Rich Presence"]
 if rich_presence:
     util.setup_rich_presence()
 
-asyncio.get_event_loop().run_until_complete(util.check_for_update())
+util.check_for_update()
 
 class Nuked(commands.Bot):
     async def on_connect(self):

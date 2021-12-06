@@ -8,7 +8,7 @@ toaster = ToastNotifier()
 with open("./config.json") as f:
     config = json.load(f)
 
-mention_logger = config.get("log_mentions")
+mention_logger = config["Enable Mention Logger"]
 
 def setup(bot: commands.Bot):
     bot.add_cog(MentionLogger(bot))

@@ -35,11 +35,11 @@ class NitroSniper(commands.Cog):
                         if "This gift has been redeemed already." in text:
                             print(
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}A redeemed nitro code sent by user {message.author} was sniped: {Fore.LIGHTRED_EX}{code}{Fore.RESET}. ({math.floor((end - start) * 1000)} ms)")
-                            await logging.send_data(f"[{util.get_time()}] A redeemed nitro code sent by user {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)")
+                            await logging.send_data(f"[{util.get_time()}] A redeemed nitro code sent by user {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)", "nitro")
                         elif "subscription_plan" in text:
                             print(
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}A valid nitro code sent by {message.author} was sniped: {Fore.LIGHTGREEN_EX}{code}{Fore.RESET}. ({math.floor((end - start) * 1000)} ms)")
-                            await logging.send_data(f"\n[{util.get_time()}] A valid nitro code sent by {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)")
+                            await logging.send_data(f"\n[{util.get_time()}] A valid nitro code sent by {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)", "nitro")
                             toaster.show_toast(
                                             "Nuked",
                                             f"Successfully claimed a nitro code sent by {message.author}.",
@@ -47,7 +47,7 @@ class NitroSniper(commands.Cog):
                         elif "Unknown Gift Code" in text:
                             print(
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}An invalid nitro code sent by {message.author} was sniped: {Style.DIM}{code}{Style.RESET_ALL}. ({math.floor((end - start) * 1000)} ms)")
-                            await logging.send_data(f"\n[{util.get_time()}] An invalid nitro code sent by {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)")
+                            await logging.send_data(f"\n[{util.get_time()}] An invalid nitro code sent by {message.author} was sniped: {code}. ({math.floor((end - start) * 1000)} ms)", "nitro")
                         else:
                             print(
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}An unknown error occurred when sniping the code sent by {message.author}: {Style.DIM}{code}{Style.RESET_ALL}. ({math.floor((end - start) * 1000)} ms)")

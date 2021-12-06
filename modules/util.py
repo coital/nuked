@@ -1,4 +1,4 @@
-import os, fade, datetime, time, random, aiohttp, json
+import os, fade, datetime, time, random, json, requests
 from typing import Dict
 from colorama import Fore
 from rich.console import Console
@@ -35,17 +35,16 @@ def toast_message(message: str):
                     duration=5,
                     threaded=True)
 
-async def check_for_update():
+def check_for_update():
     with open("./config.json") as f:
         config = json.load(f)
     if config["Automatically Check for Updates"]:
-        async with aiohttp.ClientSession(headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36"}) as session:
-            async with session.get(url="https://raw.githubusercontent.com/coital/nuked/main/version") as response:
-                ver = float(await response.text())
-                if ver > version_float:
-                    clear()
-                    log(f"Update for Nuked is available at https://github.com/coital/nuked. New version: v{ver}, current version: v{version_float}")
-                    time.sleep(5)
+        r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version")
+        ver = float(r.text)
+        if ver > version_float:
+            clear()
+            log(f"Update for Nuked is available at https://github.com/coital/nuked. New version: v{ver}, current version: v{version_float}")
+            time.sleep(5)
 
 def load_commands() -> Dict:
     commands_dict = []

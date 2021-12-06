@@ -16,9 +16,7 @@ disable_eval = config["Disable Eval Command"]
 slotbot = config["Enable Slotbot Sniper"]
 nitrosniper = config["Enable Nitro Sniper"]
 default_prefix = config["Default Prefix"]
-mention_logger_enabled = config["Logging"]["Mention Logger"] != ""
 nitro_logger_enabled = config["Logging"]["Nitro Logger"] != ""
-ghost_ping_logger = config["Logging"]["Ghost Ping Logger"] != ""
 
 class Settings(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -41,10 +39,8 @@ class Settings(commands.Cog):
         #embed.add_field(name="‎", value="‎", inline=False)
         embed.add_field(name="**Nitro Sniper**", value="on" if nitrosniper else "off", inline=True)
         embed.add_field(name="**Default Prefix**", value=default_prefix, inline=True)
-        embed.add_field(name="**Mention Logger (Webhook)**", value="on" if mention_logger_enabled else "off", inline=True)
-        #embed.add_field(name="‎", value="‎", inline=False)
         embed.add_field(name="**Nitro Logger (Webhook)**", value="on" if nitro_logger_enabled else "off", inline=True)
-        embed.add_field(name="**Ghost Ping Logger (Webhook)**", value="on" if ghost_ping_logger else "off", inline=True)
+        embed.add_field(name="‎", value="‎", inline=False)
         embed.add_field(name="**Theme**", value="default (v6)", inline=True)
         await ctx.send(embed=embed, delete_after=20)
         

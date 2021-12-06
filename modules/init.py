@@ -25,9 +25,7 @@ def init():
                     "Enable Nitro Sniper": True,
                     "Automatically Check for Updates": True,
                     "Logging": {
-                        "Mention Logger": "",
-                        "Nitro Logger": "",
-                        "Ghost Ping Logger": ""
+                        "Nitro Logger": ""
                     }
                 }
                 json.dump(setup_data, fp, indent=4)
