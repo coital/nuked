@@ -1,8 +1,8 @@
-import discord, json, ctypes, time, cursor
+import discord, json, ctypes, time, cursor, signal, sys
 from modules import util, init
 from discord.ext import commands
 init.init()
-
+sys.tracebacklimit = 0
 with open("./config.json") as f:
     config = json.load(f)
 
@@ -16,11 +16,16 @@ if rich_presence:
 
 try:
     cursor.hide()
+    signal.signal(signal.SIGINT, util.signal_handler)
 except:
     pass
 
 class Nuked(commands.Bot):
     async def on_connect(self):
+        self.msgsniper = True
+        self.snipe_history_dict = {}
+        self.sniped_message_dict = {}
+        self.sniped_edited_message_dict = {}
         await self.change_presence(activity=None, status=discord.Status.dnd)
         for command in util.load_commands():
             self.load_extension(command)
@@ -30,14 +35,15 @@ class Nuked(commands.Bot):
         util.clear()
         util.presplash()
         util.splash()
-        util.log(f"{client.user.name}#{client.user.discriminator} was logged in.")
+        util.log(f"{self.user.name}#{self.user.discriminator} was logged in.")
         if light_mode:
-            ctypes.windll.kernel32.SetConsoleTitleW("Nuked - Enabling Light Mode")
+            if util.os.name == "nt":
+                ctypes.windll.kernel32.SetConsoleTitleW("Nuked - Enabling Light Mode")
             client.recursively_remove_all_commands()
             util.log("Light mode is enabled - commands will not work.")
-        ctypes.windll.kernel32.SetConsoleTitleW(f"Nuked - {client.user.name}#{client.user.discriminator}")
+        if util.os.name == "nt":
+            ctypes.windll.kernel32.SetConsoleTitleW(f"Nuked - {self.user.name}#{self.user.discriminator}")
 
 
 
-client = Nuked(command_prefix=".", help_command=None, self_bot=True) 
-client.run(token)
+Nuked(command_prefix=".", help_command=None, self_bot=True).run(token)

@@ -1,10 +1,11 @@
-import os, fade, datetime, time, random, json, requests
+import os, fade, datetime, time, random, json, requests, ast, sys, asyncio
 from typing import Dict
 from colorama import Fore
 from rich.console import Console
 from win10toast import ToastNotifier
 from pypresence import Presence
 from discord.ext import commands
+from modules import init
 toaster = ToastNotifier()
 console = Console()
 version = "v6.0"
@@ -16,6 +17,10 @@ def clear():
 
 def get_time():
     return datetime.datetime.now().strftime("%H:%M, %m/%d/%y")
+
+def get_config():
+    with open("./config.json") as f:
+        return json.load(f)
 
 def setup_rich_presence():
     try:
@@ -45,8 +50,40 @@ def check_for_update():
             log(f"Update for Nuked is available at https://github.com/coital/nuked. New version: v{ver}, current version: v{version_float}")
             time.sleep(5)
 
+def signal_handler(signal, frame):
+    clear()
+    console.print("Logging out of Nuked", justify="center")
+    time.sleep(1)
+    clear()
+    exit(0)
+
+def check_token(token: str):
+    headers = {"Content-Type": "application/json", "authorization": token}
+    r = requests.get(
+        "https://discordapp.com/api/v9/users/@me/library", headers=headers)
+    if r.status_code == 200:
+        return
+    else:
+        os.remove(f'{os.getcwd()}\\config.json')
+        clear()
+        error('Invalid token.')
+        init.init()
+
+def insert_returns(body):
+    if isinstance(body[-1], ast.Expr):
+        body[-1] = ast.Return(body[-1].value)
+        ast.fix_missing_locations(body[-1])
+
+    if isinstance(body[-1], ast.If):
+        insert_returns(body[-1].body)
+        insert_returns(body[-1].orelse)
+
+    if isinstance(body[-1], ast.With):
+        insert_returns(body[-1].body)
+
 def load_commands() -> Dict:
     commands_dict = []
+    
     for file in os.listdir("./commands/fun/"):
         if file.endswith(".py"):
             commands_dict.append(f"commands.fun.{file[:-3]}")
