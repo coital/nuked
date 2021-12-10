@@ -1,7 +1,7 @@
 
 
 ### Nuked v6
-- 130+ commands
+- 50+ commands with subcommands
 - Easy to use
 - Up to 2-5 times faster than previous versions
 
