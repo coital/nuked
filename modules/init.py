@@ -25,6 +25,7 @@ def init():
                 "Enable Nitro Sniper": True,
                 "Automatically Check for Updates": True,
                 "Random Splash Color": False,
+                "Theme": "Default",
                 "Logging": {
                     "Nitro Logger": ""
                 }
