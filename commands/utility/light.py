@@ -13,14 +13,33 @@ class Light(commands.Cog):
         await ctx.message.delete()
         if not option:
             embed = discord.Embed(
-                                title=f"**Light Mode**", color=0xFFFAFA, 
+                                title=f"**Light Mode**", color=util.get_color(), 
                                 description=f"Light mode is an \"event-only\" mode, where Nuked will not respond to commands.\nIt significantly reduces the time it takes for events to respond.\nTo enable light mode, tweak config.json, or use `{self.client.command_prefix}light on`\n\nTo enable commands, you must restart Nuked.", 
                                 timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=20)
         elif option.lower() == "on":
-            embed = discord.Embed(title=f"**Enabling light mode**", color=0xFFFAFA,
-                              description="Detaching all commands to reduce the time an event takes to respond.\nTo enable commands, you must restart Nuked.", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            new_json = util.get_config()
+            new_json["Enable Light Mode"] = True
+            with open("./config.json", "w+") as f:
+                util.json.dump(new_json, f, indent=4)
+            embed = discord.Embed(title=f"**Enabling light mode**", color=util.get_color(),
+                              description=f"Detaching all commands to reduce the time an event takes to respond.\nTo enable commands, you must use `{self.client.command_prefix}light off`.", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=20)
-            self.client.recursively_remove_all_commands()
+            for command in util.enable_light_mode():
+                self.client.unload_extension(command)
             util.log(f"Light mode is enabled - commands will not work.")
+        elif option.lower() == "off":
+            if not util.get_config()["Enable Light Mode"]:
+                await ctx.send("light mode is not enabled.", delete_after=10)
+                return
+            new_json = util.get_config()
+            new_json["Enable Light Mode"] = False
+            with open("./config.json", "w+") as f:
+                util.json.dump(new_json, f, indent=4)
+            for command in util.enable_light_mode():
+                self.client.load_extension(command)
+            embed = discord.Embed(title=f"**Disabling light mode**", color=util.get_color(),
+                              description="Reattaching all commands. This may increase the time events take to respond.", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            util.log(f"Light mode was disabled - commands will now work.")
+            await ctx.send(embed=embed, delete_after=20)
     

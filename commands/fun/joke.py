@@ -14,7 +14,7 @@ class Joke(commands.Cog):
         async with aiohttp.ClientSession() as session:
             async with session.get("https://sv443.net/jokeapi/v2/joke/Any?type=single") as response:
                 json = await response.json()
-                embed = discord.Embed(title="**Joke**", color=0xFAFAFA,
+                embed = discord.Embed(title="**Joke**", color=util.get_color(),
                           description=f"{json['joke']}", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
                 await ctx.send(embed=embed, delete_after=25)
                 await session.close()

@@ -17,7 +17,7 @@ class Nitro(commands.Cog):
     async def nitro(self, ctx, option: str=None, code: str = None):
         await ctx.message.delete()
         embed = discord.Embed(
-                            title=f"**Nitro Tools**", color=0xFAFAFA, 
+                            title=f"**Nitro Tools**", color=util.get_color(), 
                             description=f"Tools to check or generate Nitro codes.", 
                             timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.add_field(name="**Check a Nitro Code**", value=f"to check a Nitro code, use `{self.client.command_prefix}nitro check <code>`.", inline=False)

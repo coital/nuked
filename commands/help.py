@@ -14,7 +14,7 @@ class Help(commands.Cog):
     async def help(self, ctx, *, option: str = None):
         await ctx.message.delete()
         embed = discord.Embed(title="**Nuked | Help**", description=f"{util.version} - {self.client.user.name}#{self.client.user.discriminator}",
-                              color=0xFFFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                              color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.add_field(name="**Fun Commands**",
                         value=f"{self.client.command_prefix}help fun", inline=False)
         embed.add_field(name="**NSFW Commands**",
@@ -30,21 +30,21 @@ class Help(commands.Cog):
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "fun":
             embed = discord.Embed(title="**Fun Commands**", description="not implemented mane", 
-                                   color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "nsfw":
             embed = discord.Embed(title="**NSFW Commands**", description="not implemented mane", 
-                                   color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "malicious":
             embed = discord.Embed(title="**Malicious Commands**", description="not implemented mane", 
-                                   color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "util" or option.lower() == "utility":
             embed = discord.Embed(title="**Utility Commands | Page 1**", description="not implemented mane", 
-                                   color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "util 2" or option.lower() == "utility 2":
             embed = discord.Embed(title="**Utility Commands | Page 2**", description="not implemented mane", 
-                                   color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=25)

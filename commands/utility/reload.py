@@ -13,7 +13,7 @@ class Reload(commands.Cog):
         await ctx.message.delete()
         if not arg:
             embed = discord.Embed(title="**Reload**", description=f"Reload Nuked or reload all commands for Nuked.",
-                              color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                              color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name="**Reloading Nuked**", value=f"to reload Nuked, use `{self.client.command_prefix}reload nuked`, `{self.client.command_prefix}reload sb` or `{self.client.command_prefix}reload selfbot`.", inline=False)
             embed.add_field(name="**Reloading Cogs**", value=f"to reload cogs, use `{self.client.command_prefix}reload cogs` or `{self.client.command_prefix}reload commands`.", inline=False)
             await ctx.send(embed=embed, delete_after=20)

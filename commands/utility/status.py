@@ -15,7 +15,7 @@ class Status(commands.Cog):
         if not type:
             embed = discord.Embed(
                             title="Status Types", 
-                            color=0xFAFAFA, 
+                            color=util.get_color(), 
                             timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name="**playing**", value=f"have a `playing` status.\nUsage: `{self.client.command_prefix}status playing <text>`", inline=False)
             embed.add_field(name="**competing**", value=f"have a `competing` status.\nUsage: `{self.client.command_prefix}status competing <text>`", inline=False)

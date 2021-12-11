@@ -18,7 +18,7 @@ async def send_data(data: str = None, category: str = None):
                 if nitro_logging == "":
                     return
                 async with aiohttp.ClientSession() as session:
-                    embed = discord.Embed(title="**Nuked | Nitro**", color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                    embed = discord.Embed(title="**Nuked | Nitro**", color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
                     embed.add_field(name="**Data**", value=data)
                     webhook = discord.Webhook.from_url(url=nitro_logging, adapter=AsyncWebhookAdapter(session))
                     await webhook.send(

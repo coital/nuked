@@ -11,7 +11,7 @@ class Backup(commands.Cog):
     @commands.command()
     async def backup(self, ctx, option: str=None):
         embed = discord.Embed(
-                                title=f"**Backup**", color=0xFFFAFA, 
+                                title=f"**Backup**", color=util.get_color(), 
                                 description=f"Backup your friends, servers, or both.", 
                                 timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.add_field(name="**Backing up Friends**", value=f"to backup friends, use `{self.client.command_prefix}backup friends`.", inline=False)

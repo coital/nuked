@@ -17,7 +17,7 @@ slotbot = config["Enable Slotbot Sniper"]
 nitrosniper = config["Enable Nitro Sniper"]
 default_prefix = config["Default Prefix"]
 nitro_logger_enabled = config["Logging"]["Nitro Logger"] != ""
-
+theme = config["Theme"]
 class Settings(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
@@ -27,7 +27,7 @@ class Settings(commands.Cog):
         embed = discord.Embed(
                             title="Settings for Nuked", 
                             description="These are your settings from config.json.", 
-                            color=0xFAFAFA, 
+                            color=util.get_color(), 
                             timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.add_field(name="**Light Mode**", value="on" if light_mode else "off", inline=True)
         embed.add_field(name="**Rich Presence**", value="on" if light_mode else "off", inline=True)
@@ -40,7 +40,7 @@ class Settings(commands.Cog):
         embed.add_field(name="**Nitro Sniper**", value="on" if nitrosniper else "off", inline=True)
         embed.add_field(name="**Default Prefix**", value=default_prefix, inline=True)
         embed.add_field(name="**Nitro Logger (Webhook)**", value="on" if nitro_logger_enabled else "off", inline=True)
-        embed.add_field(name="**Theme**", value="default (v6)", inline=True)
+        embed.add_field(name="**Theme**", value=f"{theme}", inline=True)
         await ctx.send(embed=embed, delete_after=20)
         
     

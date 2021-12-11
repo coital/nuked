@@ -29,9 +29,9 @@ class OnMessageDelete(commands.Cog):
                         discord.utils.escape_markdown(str(message.author))) + "`: " + discord.utils.escape_mentions(
                         message.content) + "\n\n**Attachments:**\n" + links
                     await message.channel.send(message_content, delete_after=20)
-        if len(self.client.sniped_message_dict) > 1000:
+        if len(self.client.sniped_message_dict) > 500:
             self.client.sniped_message_dict.clear()
-        if len(self.client.snipe_history_dict) > 1000:
+        if len(self.client.snipe_history_dict) > 500:
             self.client.snipe_history_dict.clear()
         attachments = message.attachments
         if len(attachments) == 0:

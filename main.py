@@ -31,18 +31,16 @@ class Nuked(commands.Bot):
             self.load_extension(command)
             util.log(f"Loaded cog: {command}")
         time.sleep(1.5)
-        
         util.clear()
         util.presplash()
         util.splash()
         util.log(f"{self.user.name}#{self.user.discriminator} was logged in.")
         if light_mode:
-            if util.os.name == "nt":
-                ctypes.windll.kernel32.SetConsoleTitleW("Nuked - Enabling Light Mode")
-            client.recursively_remove_all_commands()
+            util.set_title("Nuked - Enabling Light Mode")
+            for command in util.enable_light_mode():
+                self.unload_extension(command)
             util.log("Light mode is enabled - commands will not work.")
-        if util.os.name == "nt":
-            ctypes.windll.kernel32.SetConsoleTitleW(f"Nuked - {self.user.name}#{self.user.discriminator}")
+        util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
 
 
 

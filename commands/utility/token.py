@@ -43,7 +43,7 @@ class Token(commands.Cog):
     async def token(self, ctx, option: str=None, token: str = None):
         await ctx.message.delete()
         embed = discord.Embed(
-                                title=f"**Token Tools**", color=0xFFFAFA, 
+                                title=f"**Token Tools**", color=util.get_color(), 
                                 description=f"Tools to interact with Discord tokens", 
                                 timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.add_field(name="**View Information**", value=f"to view information on a Discord token, use `{self.client.command_prefix}token info <token>`.", inline=False)
@@ -75,7 +75,7 @@ class Token(commands.Cog):
                                 language = self.languages.get(locale)
                                 nitro = False
                                 embed = discord.Embed(title="**Token Information**",
-                                            color=0xFFFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                            color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
                                 embed.set_thumbnail(url=aurl)
                                 embed.add_field(name="**Tag**", value=f"{tag}", inline=False)
                                 embed.add_field(name="**ID**", value=f"{id}", inline=False)
@@ -94,7 +94,7 @@ class Token(commands.Cog):
                     token = base64.b64encode(bytes(fh, 'utf-8')).decode() + '.X' + ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' +
                                                                                           "1234567890", k=5)) + '.' + ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_' + "1234567890", k=27))
                     embed = discord.Embed(title="**Discord Token**", description="note: this token likely does not belong to an actual account.", 
-                                          color=0xFAFAFA, timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+                                          color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
                     embed.add_field(name="**Token**", value=f"{token}")
                     await ctx.send(embed=embed, delete_after=20)
                     

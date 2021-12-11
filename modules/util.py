@@ -1,4 +1,4 @@
-import os, fade, datetime, time, random, json, requests, ast, sys, asyncio
+import os, fade, datetime, time, random, json, requests, ast, sys, asyncio, ctypes, discord
 from typing import Dict
 from colorama import Fore
 from rich.console import Console
@@ -11,9 +11,12 @@ console = Console()
 version = "v6.0"
 version_float = 6.0
 
-
 def clear():
     os.system("clear" if os.name != "nt" else "cls")
+
+def set_title(title: str):
+    if os.name == "nt":
+        ctypes.windll.kernel32.SetConsoleTitleW(f"{title}")
 
 def get_time():
     return datetime.datetime.now().strftime("%H:%M, %m/%d/%y")
@@ -22,6 +25,19 @@ def get_config():
     with open("./config.json") as f:
         return json.load(f)
 
+def get_color():
+    with open("./config.json") as f:
+        config = json.load(f)
+    match str(config["Theme"]).lower():
+        case "default":
+            return discord.Color(0xFAFAFA)
+        case "light pink":
+            return discord.Color(0xFFC0CB)
+        case "light blue":
+            return discord.Color(0xADD8E6)
+        case _:
+            return discord.Color(0xFAFAFA)
+        
 def setup_rich_presence():
     try:
         rpc = Presence(client_id="916855918552023081")
@@ -103,6 +119,13 @@ def load_commands() -> Dict:
         if file.endswith(".py"):
             commands_dict.append(f"events.{file[:-3]}")
     return commands_dict
+
+def enable_light_mode() -> Dict:
+    light_mode_commands = []
+    for command in load_commands():
+        if "light" not in command and "event" not in command:
+            light_mode_commands.append(command)
+    return light_mode_commands
 
 def presplash():
     console = Console()

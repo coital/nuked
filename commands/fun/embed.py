@@ -11,7 +11,7 @@ class Embed(commands.Cog):
     @commands.command(aliases=["say"])
     async def embed(self, ctx, *, message: str):
         await ctx.message.delete()
-        embed = discord.Embed(color=0xFAFAFA, description=message,
+        embed = discord.Embed(color=util.get_color(), description=message,
                           timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.set_author(name=str(self.client.user.display_name + "#" +
                               self.client.user.discriminator), icon_url=self.client.user.avatar_url)
