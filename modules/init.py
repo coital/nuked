@@ -3,7 +3,7 @@ from colorama import Fore
 from modules import util
 
 def init():
-    if util.sys.version_info <= (3, 10):
+    if util.sys.version_info < (3, 10):
         util.log("This selfbot requirees Python 3.10.")
         input()
         exit()
