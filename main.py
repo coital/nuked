@@ -34,6 +34,7 @@ class Nuked(commands.Bot):
         util.clear()
         util.presplash()
         util.splash()
+        util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
         util.log(f"{self.user.name}#{self.user.discriminator} was logged in.")
         if light_mode:
             util.set_title("Nuked - Enabling Light Mode")
