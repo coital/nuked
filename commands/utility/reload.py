@@ -19,8 +19,7 @@ class Reload(commands.Cog):
             await ctx.send(embed=embed, delete_after=20)
         elif arg.lower() == "cogs" or arg.lower() == "commands":
             for command in util.load_commands():
-                self.client.unload_extension(command)
-                self.client.load_extension(command)
+                self.client.reload_extension(command)
             await ctx.send(f"reloaded {len(util.load_commands())} cogs.", delete_after=15)
         elif arg.lower() == "nuked" or arg.lower() == "sb" or arg.lower() == "selfbot":
             util.clear()
