@@ -5,8 +5,7 @@ from modules import util
 def setup(bot: commands.Bot):
     bot.add_cog(Settings(bot))
 
-with open("./config.json") as f:
-    config = json.load(f)
+config = util.get_config()
     
 light_mode = config["Enable Light Mode"]
 rich_presence = config["Discord Rich Presence"]
@@ -17,7 +16,6 @@ slotbot = config["Enable Slotbot Sniper"]
 nitrosniper = config["Enable Nitro Sniper"]
 default_prefix = config["Default Prefix"]
 nitro_logger_enabled = config["Logging"]["Nitro Logger"] != ""
-theme = config["Theme"]
 class Settings(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
@@ -40,7 +38,7 @@ class Settings(commands.Cog):
         embed.add_field(name="**Nitro Sniper**", value="on" if nitrosniper else "off", inline=True)
         embed.add_field(name="**Default Prefix**", value=default_prefix, inline=True)
         embed.add_field(name="**Nitro Logger (Webhook)**", value="on" if nitro_logger_enabled else "off", inline=True)
-        embed.add_field(name="**Theme**", value=f"{theme}", inline=True)
+        embed.add_field(name="**Theme**", value=f"{util.get_config()['Theme']}", inline=True)
         await ctx.send(embed=embed, delete_after=20)
         
     
