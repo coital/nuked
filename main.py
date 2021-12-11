@@ -43,5 +43,4 @@ class Nuked(commands.Bot):
         util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
 
 
-
 Nuked(command_prefix=".", help_command=None, self_bot=True).run(token)
