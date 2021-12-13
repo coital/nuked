@@ -1,8 +1,8 @@
 import os, json, time
 from colorama import Fore
-from modules import util
 
 def init():
+    from modules import util
     if util.sys.version_info < (3, 10):
         util.log("This selfbot requirees Python 3.10.")
         input()

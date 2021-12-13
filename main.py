@@ -1,7 +1,13 @@
-import discord, json, ctypes, time, cursor, signal, sys
+from modules import package
+from os import getcwd, system
+import sys
+
+import discord, json, ctypes, time, cursor, signal
 from modules import util, init
 from discord.ext import commands
+
 init.init()
+
 sys.tracebacklimit = 0
 with open("./config.json") as f:
     config = json.load(f)
@@ -12,16 +18,23 @@ rich_presence = config["Discord Rich Presence"]
 
 if rich_presence:
     util.setup_rich_presence()
+
+if util.os.name == "nt":
+    package.install_module(module="win10toast")
+
 # util.check_for_update()
 
 try:
     cursor.hide()
-    signal.signal(signal.SIGINT, util.signal_handler)
-except:
-    pass
+except Exception as e:
+    util.error(f"Exception while setting up cursor: {str(e)}")
 
 class Nuked(commands.Bot):
     async def on_connect(self):
+        try:
+            signal.signal(signal.SIGINT, util.signal_handler)
+        except Exception as e:
+            util.error(f"Error while setting up signal handler: {str(e)}")
         self.msgsniper = True
         self.snipe_history_dict = {}
         self.sniped_message_dict = {}

@@ -1,5 +1,6 @@
-import os, fade, datetime, time, random, json, requests, ast, sys, asyncio, ctypes, discord
-from typing import Dict
+import os, fade, datetime, time, random, json, requests, ast, sys, asyncio, ctypes, discord, subprocess
+import cursor
+from typing import Dict, List
 from colorama import Fore
 from rich.console import Console
 from pypresence import Presence
@@ -71,6 +72,7 @@ def check_for_update():
             time.sleep(5)
 
 def signal_handler(signal, frame):
+    cursor.show()
     clear()
     console.print("Logging out of Nuked", justify="center")
     time.sleep(1)
