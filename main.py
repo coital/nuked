@@ -1,8 +1,6 @@
 from modules import package
-from os import getcwd, system
-import sys
 
-import discord, json, ctypes, time, cursor, signal
+import discord, json, ctypes, time, cursor, signal, sys
 from modules import util, init
 from discord.ext import commands
 

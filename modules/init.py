@@ -10,10 +10,11 @@ def init():
     if not os.path.exists("./config.json"):
         util.clear()
         with open("./config.json", "w") as fp:
+            util.clear()
             util.log("Welcome to the initial setup process for the Nuked selfbot.")
             setup_token = input("Enter your Discord token: ")
             setup_password = input(
-                "Enter your Discord password (enter \"None\" or nothing if you don\'t want to): ")
+                "Enter your Discord password (enter \"None\" or nothing if you don't want to): ")
             if setup_password == "":
                 setup_password = "None"
             setup_data = {
