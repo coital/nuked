@@ -2,11 +2,9 @@ import os, fade, datetime, time, random, json, requests, ast, sys, asyncio, ctyp
 from typing import Dict
 from colorama import Fore
 from rich.console import Console
-from win10toast import ToastNotifier
 from pypresence import Presence
 from discord.ext import commands
 from modules import init
-toaster = ToastNotifier()
 console = Console()
 version = "v6.0"
 version_float = 6.0
@@ -17,6 +15,7 @@ def clear():
 def set_title(title: str):
     if os.name == "nt":
         ctypes.windll.kernel32.SetConsoleTitleW(f"{title}")
+    
 
 def get_time():
     return datetime.datetime.now().strftime("%H:%M, %m/%d/%y")
@@ -49,11 +48,16 @@ def setup_rich_presence():
         time.sleep(2.5)
         
 def toast_message(message: str):
-    toaster.show_toast(
+    if os.name == "nt":
+        from win10toast import ToastNotifier
+        toaster = ToastNotifier()
+        toaster.show_toast(
                     "Nuked",
                     f"{message}",
                     duration=5,
                     threaded=True)
+    else:
+        pass
 
 def check_for_update():
     with open("./config.json") as f:

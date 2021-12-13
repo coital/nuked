@@ -23,7 +23,7 @@ class Reload(commands.Cog):
             await ctx.send(f"reloaded {len(util.load_commands())} cogs.", delete_after=15)
         elif arg.lower() == "nuked" or arg.lower() == "sb" or arg.lower() == "selfbot":
             util.clear()
-            os.system('python "' + os.getcwd() + "\\" + sys.argv[0] + '"')
+            os.system('python "' + os.getcwd() + "/" + sys.argv[0] + '"')
                 
         
     

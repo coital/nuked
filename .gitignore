@@ -2,6 +2,5 @@ Cached Messages/*
 *.json
 **/venv-nuked/*
 *.code-workspace
-commands/utility/__pycache__/*
-commands/fun/__pycache__/*
+**/__pycache__/
 backups/*
