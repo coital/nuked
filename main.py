@@ -1,8 +1,16 @@
+
+print("[status] loading package manager..")
 from modules import package, util, init
+print(f"[status] done loading package manager")
 
 try:
-    import discord, json, ctypes, time, cursor, signal, sys
+    import time, math
+    start = time.time()
+    print("[status] loading main.py imports")
+    import discord, json, ctypes, cursor, signal, sys
     from discord.ext import commands
+    end = time.time()
+    print(f"[status] done loading main.py imports ({math.ceil(end - start)} s)")
 except ImportError as e:
     if "discord" in e.name:
         package.install_module(module="discord.py-self")
@@ -10,6 +18,8 @@ except ImportError as e:
         package.install_module(module=e.name)
         print(f"Installed missing module {e.name}, restarting..")
     package.restart()
+
+time.sleep(1.5)
 
 init.init()
 

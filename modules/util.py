@@ -3,7 +3,7 @@ from typing import Dict, List
 import os, datetime, ast, sys, subprocess, json, time, ctypes
 
 try:
-    import fade, random, asyncio, discord, requests
+    import fade, random, asyncio, discord, requests, urbandictionary_top
     import cursor
     from discord.ext import commands
     from colorama import Fore
