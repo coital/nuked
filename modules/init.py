@@ -13,7 +13,7 @@ def init():
     from modules import util
     util.clear()
     if util.sys.version_info < (3, 10):
-        util.log("This selfbot requirees [bold]Python 3.10[/bold].")
+        util.log("This selfbot requires [bold]Python 3.10[/bold].")
         input()
         exit()
     if not os.path.exists("./config.json"):
@@ -45,8 +45,11 @@ def init():
                 }
             }
             json.dump(setup_data, fp, indent=4)
-            util.log("[cyan]Additional settings can be tweaked in config.json![/cyan]")
+            util.log("[bold]Additional settings can be tweaked in config.json![/bold]")
             time.sleep(2)
         util.clear()
     else:
+        if os.path.getsize(f"{os.getcwd()}/config.json") == 0:
+            os.remove(f"{os.getcwd()}/config.json")
+            package.restart()
         pass
