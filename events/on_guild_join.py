@@ -10,5 +10,5 @@ class OnGuildJoin(commands.Cog):
         self.client = bot
     @commands.Cog.listener()
     async def on_message_join(self, guild):
-        util.log(f'A guild was joined: {guild.name}')
+        util.log(f"A guild was joined: [bold]{guild.name}[/bold]")
     

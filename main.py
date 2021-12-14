@@ -1,12 +1,19 @@
-from modules import package
+from modules import package, util, init
 
-import discord, json, ctypes, time, cursor, signal, sys
-from modules import util, init
-from discord.ext import commands
+try:
+    import discord, json, ctypes, time, cursor, signal, sys
+    from discord.ext import commands
+except ImportError as e:
+    if "discord" in e.name:
+        package.install_module(module="discord.py-self")
+    else:
+        package.install_module(module=e.name)
+        print(f"Installed missing module {e.name}, restarting..")
+    package.restart()
 
 init.init()
 
-sys.tracebacklimit = 0
+util.sys.tracebacklimit = 0
 with open("./config.json") as f:
     config = json.load(f)
 
@@ -25,7 +32,7 @@ if util.os.name == "nt":
 try:
     cursor.hide()
 except Exception as e:
-    util.error(f"Exception while setting up cursor: {str(e)}")
+    util.error(f"Exception while setting up cursor: [bold]{str(e)}[/bold]")
 
 class Nuked(commands.Bot):
     async def on_connect(self):
@@ -40,13 +47,13 @@ class Nuked(commands.Bot):
         await self.change_presence(activity=None, status=discord.Status.dnd)
         for command in util.load_commands():
             self.load_extension(command)
-            util.log(f"Loaded cog: {command}")
+            util.log(f"Loaded cog: [bold]{command}[/bold]")
         time.sleep(1.5)
         util.clear()
         util.presplash()
         util.splash()
         util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
-        util.log(f"{self.user.name}#{self.user.discriminator} was logged in.")
+        util.log(f"[bold]{self.user.name}#{self.user.discriminator}[/bold] was logged in.")
         if light_mode:
             util.set_title("Nuked - Enabling Light Mode")
             for command in util.enable_light_mode():

@@ -10,5 +10,5 @@ class OnRelationshipAdd(commands.Cog):
         self.client = bot
     @commands.Cog.listener()
     async def on_relationship_add(self, friendship):
-        util.log(f'A friend was added: {friendship.user.display_name}#{friendship.user.discriminator}.')
+        util.log(f"A friend was added: [bold]{friendship.user.display_name}#{friendship.user.discriminator}[/bold].")
     

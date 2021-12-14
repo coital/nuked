@@ -1,12 +1,25 @@
-import os, fade, datetime, time, random, json, requests, ast, sys, asyncio, ctypes, discord, subprocess
-import cursor
+from modules import package
 from typing import Dict, List
-from colorama import Fore
-from rich.console import Console
-from pypresence import Presence
-from discord.ext import commands
-from modules import init
-console = Console()
+import os, datetime, ast, sys, subprocess, json, time, ctypes
+
+try:
+    import fade, random, asyncio, discord, requests
+    import cursor
+    from discord.ext import commands
+    from colorama import Fore
+    from rich import color
+    from rich.console import Console
+    from pypresence import Presence
+    from modules import init
+    console = Console(color_system="auto")
+except ImportError as e:
+    if e.name == "discord.ext" or e.name == "discord":
+        package.install_module(module="discord.py-self")
+    else:
+        package.install_module(module=e.name)
+        print(f"Installed missing module {e.name}, restarting..")
+    package.restart()
+
 version = "v6.0"
 version_float = 6.0
 
@@ -16,6 +29,8 @@ def clear():
 def set_title(title: str):
     if os.name == "nt":
         ctypes.windll.kernel32.SetConsoleTitleW(f"{title}")
+    elif os.name == "posix":
+        print(f"\x1b]2;{title}\x07")
     
 
 def get_time():
@@ -45,7 +60,7 @@ def setup_rich_presence():
         rpc.update(details=f"Connected | {version}",
                 large_image="avatar", start=time.time())
     except Exception as e:
-        error(f"RPC Failed to initialize, reason: {e}.")
+        error(f"RPC Failed to initialize: [bold]{e}[/bold].")
         time.sleep(2.5)
         
 def toast_message(message: str):
@@ -147,19 +162,20 @@ def splash():
     if config["Random Splash Color"]:
         functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.random, fade.water]
     splash = random.choice(functions)("""                        
-                                      ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
-                                      ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
-                                      ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
-                                      ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
-                                      ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
-                                      ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
+                                     ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
+                                     ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
+                                     ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
+                                     ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
+                                     ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
+                                     ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
     """)
     print(splash)
-    console.print(version, justify="center")
+    console.print(f"[reset][cyan][bold]{version}[/cyan][/bold][/reset]", justify="center")
     
+
 def error(content: str):
-    print(f"\n{Fore.LIGHTRED_EX}[{get_time()}]{Fore.RESET} {content}{Fore.RESET}")
+    console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]")
 
 
 def log(content: str):
-    print(f"\n{Fore.CYAN}[{get_time()}]{Fore.RESET} {content}{Fore.RESET}")
+    console.print(f"\n[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]")

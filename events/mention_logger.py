@@ -20,4 +20,4 @@ class MentionLogger(commands.Cog):
             if message.author == self.client.user:
                 return
             if self.client.user.mentioned_in(message):
-                util.log(f'{message.author} mentioned you in {message.guild.name if message.guild else "DMs"}: {Fore.LIGHTGREEN_EX}{message.content.replace(f"<@{self.client.user.id}>", f"@{self.client.user.display_name}#{self.client.user.discriminator}").replace(f"<@!{self.client.user.id}>", f"@{self.client.user.display_name}#{self.client.user.discriminator}")}')
+                util.log(f"[bold]{message.author}[/bold] mentioned you in {message.guild.name if message.guild else 'DMs'}: [green][bold]{message.content.replace(f'<@{self.client.user.id}>', f'@{self.client.user.display_name}#{self.client.user.discriminator}').replace(f'<@!{self.client.user.id}>', f'@{self.client.user.display_name}#{self.client.user.discriminator}')}[/bold][/green]")

@@ -1,6 +1,9 @@
 import os, subprocess, sys
 from typing import List
 
+def restart():
+    os.execv(sys.executable, ['python'] + [sys.argv[0]])
+
 def install_module(module: str=None, modules: List[str]=None):
     if not module and not modules:
         return

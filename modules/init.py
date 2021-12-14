@@ -1,10 +1,19 @@
-import os, json, time
-from colorama import Fore
+
+import os, json, time, sys
+from modules import package
+
+try:
+    from colorama import Fore
+except ImportError as e:
+    package.install_module(module=e.name)
+    print(f"Installed missing module {e.name}, restarting..")
+    package.restart()
 
 def init():
     from modules import util
+    util.clear()
     if util.sys.version_info < (3, 10):
-        util.log("This selfbot requirees Python 3.10.")
+        util.log("This selfbot requirees [bold]Python 3.10[/bold].")
         input()
         exit()
     if not os.path.exists("./config.json"):
@@ -36,7 +45,7 @@ def init():
                 }
             }
             json.dump(setup_data, fp, indent=4)
-            util.log("Additional settings can be tweaked in config.json!")
+            util.log("[cyan]Additional settings can be tweaked in config.json![/cyan]")
             time.sleep(2)
         util.clear()
     else:

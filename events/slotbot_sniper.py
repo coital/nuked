@@ -22,7 +22,7 @@ class SlotbotSniper(commands.Cog):
                         start = time.time()
                         await message.channel.send("~grab")
                         end = time.time()
-                        util.log(f"Sniped slotbot in guild {message.guild.name}, ID: {message.guild.id}. ({math.floor((end - start) * 1000)} ms)")
+                        util.log(f"Sniped slotbot in guild [bold]{message.guild.name}[/bold], ID: [bold]{message.guild.id}[/bold]. ({math.floor((end - start) * 1000)} ms)")
                     except:
-                        util.error(f"Failed to snipe slotbot in guild {message.guild.name}, ID: {message.guild.id}")
+                        util.error(f"Failed to snipe slotbot in guild [bold]{message.guild.name}[/bold], ID: [bold]{message.guild.id}[/bold].")
                 
