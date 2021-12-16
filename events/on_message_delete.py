@@ -20,7 +20,7 @@ class OnMessageDelete(commands.Cog):
                 if len(attachments) == 0:
                     message_content = "`" + str(discord.utils.escape_markdown(str(message.author))) + "`: " + str(
                         message.content).replace("@everyone", "@\u200beveryone").replace("@here", "@\u200bhere")
-                    await message.channel.send(message_content, delete_after=20)
+                    await message.channel.send(message_content)
                 else:
                     links = ""
                     for attachment in attachments:
@@ -28,7 +28,7 @@ class OnMessageDelete(commands.Cog):
                     message_content = "`" + str(
                         discord.utils.escape_markdown(str(message.author))) + "`: " + discord.utils.escape_mentions(
                         message.content) + "\n\n**Attachments:**\n" + links
-                    await message.channel.send(message_content, delete_after=20)
+                    await message.channel.send(message_content)
         if len(self.client.sniped_message_dict) > 500:
             self.client.sniped_message_dict.clear()
         if len(self.client.snipe_history_dict) > 500:
