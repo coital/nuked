@@ -12,14 +12,14 @@ try:
     end = time.time()
     print(f"[status] done loading main.py imports ({math.ceil(end - start)} s)")
 except ImportError as e:
-    if "discord" in e.name:
+    if "discord" in str(e):
         package.install_module(module="discord.py-self")
     else:
         package.install_module(module=e.name)
         print(f"Installed missing module {e.name}, restarting..")
+    time.sleep(1.5)
     package.restart()
 
-time.sleep(1.5)
 
 init.init()
 
@@ -56,8 +56,17 @@ class Nuked(commands.Bot):
         self.sniped_edited_message_dict = {}
         await self.change_presence(activity=None, status=discord.Status.dnd)
         for command in util.load_commands():
-            self.load_extension(command)
-            util.log(f"Loaded cog: [bold]{command}[/bold]")
+            try:
+                self.load_extension(command)
+                util.log(f"Loaded cog: [bold]{command}[/bold]")
+            except commands.errors.ExtensionFailed as e:
+                # util.error(f"There was an extension exception in on_connect: [bold]{e.name}: {e.original}[/bold]") 
+                if isinstance(e.original, ModuleNotFoundError):
+                    util.error(f"Missing module: [bold]{e.original.name}[/bold]. Attempting to install it.")
+                    package.install_module(module=e.original.name)
+                    package.restart()
+            except Exception as e:
+                util.error(f"There was an exception in on_connect: [bold]{e}[/bold]")
         time.sleep(1.5)
         util.clear()
         util.presplash()

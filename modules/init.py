@@ -47,9 +47,11 @@ def init():
             json.dump(setup_data, fp, indent=4)
             util.log("[bold]Additional settings can be tweaked in config.json![/bold]")
             time.sleep(2)
+            util.check_token(setup_data["Discord Token"])
         util.clear()
     else:
         if os.path.getsize(f"{os.getcwd()}/config.json") == 0:
             os.remove(f"{os.getcwd()}/config.json")
             package.restart()
-        pass
+        else:
+            util.check_token(util.get_config()["Discord Token"])

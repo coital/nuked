@@ -3,9 +3,8 @@ from typing import Dict, List
 import os, datetime, ast, sys, subprocess, json, time, ctypes
 
 try:
-    import fade, random, asyncio, discord, requests, urbandictionary_top
+    import fade, random, discord, requests
     import cursor
-    from discord.ext import commands
     from colorama import Fore
     from rich import color
     from rich.console import Console
@@ -13,7 +12,7 @@ try:
     from modules import init
     console = Console(color_system="auto")
 except ImportError as e:
-    if e.name == "discord.ext" or e.name == "discord":
+    if "discord" in e.name:
         package.install_module(module="discord.py-self")
     else:
         package.install_module(module=e.name)
@@ -22,6 +21,7 @@ except ImportError as e:
 
 version = "v6.0"
 version_float = 6.0
+global rpc
 
 def clear():
     os.system("clear" if os.name != "nt" else "cls")
@@ -31,7 +31,7 @@ def set_title(title: str):
         ctypes.windll.kernel32.SetConsoleTitleW(f"{title}")
     elif os.name == "posix":
         print(f"\x1b]2;{title}\x07")
-    
+
 
 def get_time():
     return datetime.datetime.now().strftime("%H:%M, %m/%d/%y")
@@ -52,16 +52,6 @@ def get_color():
             return discord.Color(0xADD8E6)
         case _:
             return discord.Color(0xFAFAFA)
-        
-def setup_rich_presence():
-    try:
-        rpc = Presence(client_id="916855918552023081")
-        rpc.connect()
-        rpc.update(details=f"Connected | {version}",
-                large_image="avatar", start=time.time())
-    except Exception as e:
-        error(f"RPC Failed to initialize: [bold]{e}[/bold].")
-        time.sleep(2.5)
         
 def toast_message(message: str):
     if os.name == "nt":
@@ -101,7 +91,7 @@ def check_token(token: str):
     if r.status_code == 200:
         return
     else:
-        os.remove(f'{os.getcwd()}\\config.json')
+        os.remove(f'{os.getcwd()}/config.json')
         clear()
         error('Invalid token.')
         init.init()
@@ -152,7 +142,7 @@ def presplash():
     console = Console()
     for letter in "Welcome":
         console.print(letter, justify="center")
-        time.sleep(0.15)
+        time.sleep(0.1)
     clear()
 
 def splash():
@@ -170,7 +160,7 @@ def splash():
                                      ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
     """)
     print(splash)
-    console.print(f"[reset][cyan][bold]{version}[/cyan][/bold][/reset]", justify="center")
+    console.print(f"[reset][bold]{version}[/bold][/reset]", justify="center")
     
 
 def error(content: str):
@@ -179,3 +169,23 @@ def error(content: str):
 
 def log(content: str):
     console.print(f"\n[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]")
+
+def setup_rich_presence() -> bool:
+    global rpc
+    try:
+        rpc = Presence(client_id="916855918552023081")
+        rpc.connect()
+        rpc.update(details=f"Connected | {version}",
+                large_image="avatar", start=time.time(),
+                join="Join")
+    except Exception as e:
+        error(f"RPC Failed to initialize: [bold]{e}[/bold].")
+        time.sleep(2.5)
+
+def enable_rich_presence() -> bool:
+    return setup_rich_presence()
+
+async def disable_rich_presence() -> bool:
+    global rpc
+    await rpc.clear()
+    return True
