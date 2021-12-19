@@ -13,7 +13,7 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx, *, option: str = None):
         await ctx.message.delete()
-        embed = discord.Embed(title="**Nuked | Help**", description=f"{util.version} - {self.client.user.name}#{self.client.user.discriminator}",
+        embed = discord.Embed(title="**Nuked | Help**",
                               color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.add_field(name="**Fun Commands**",
                         value=f"{self.client.command_prefix}help fun", inline=False)

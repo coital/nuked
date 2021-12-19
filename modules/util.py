@@ -1,6 +1,6 @@
 from modules import package
 from typing import Dict, List
-import os, datetime, ast, sys, subprocess, json, time, ctypes
+import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio
 
 try:
     import fade, random, discord, requests
@@ -34,7 +34,7 @@ def set_title(title: str):
 
 
 def get_time():
-    return datetime.datetime.now().strftime("%H:%M, %m/%d/%y")
+    return datetime.datetime.now().strftime("%H:%M:%S, %m/%d/%y")
 
 def get_config():
     with open("./config.json") as f:
