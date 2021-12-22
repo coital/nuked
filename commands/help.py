@@ -22,29 +22,69 @@ class Help(commands.Cog):
         embed.add_field(name="**Malicious Commands**",
                         value=f"{self.client.command_prefix}help malicious", inline=False)
         embed.add_field(name="**Utility Commands**",
-                        value=f"{self.client.command_prefix}help util\n{self.client.command_prefix}help util 2", inline=False)
+                        value=f"{self.client.command_prefix}help util", inline=False)
         embed.set_thumbnail(url=self.client.user.avatar_url)
         embed.set_footer(
             text="Nuked", icon_url="https://cdn.discordapp.com/attachments/820836670857412710/820946025799745576/avatar.png")
         if not option:
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "fun":
-            embed = discord.Embed(title="**Fun Commands**", description="not implemented mane", 
-                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            embed = discord.Embed(title="**Fun Commands**", description="<> - required\n[] - optional",
+            color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            embed.add_field(name=f"**{self.client.command_prefix}ascii <text>**", value="Send <text> in ASCII art.")
+            embed.add_field(name=f"**{self.client.command_prefix}cat**", value="Send a random embedded image of a cat.")
+            embed.add_field(name=f"**{self.client.command_prefix}clyde <message>**", value="Send an embedded image of Discord's Clyde saying <text>.")
+            embed.add_field(name=f"**{self.client.command_prefix}embed <text>**", value="Send an embed containing <text>.")
+            embed.add_field(name=f"**{self.client.command_prefix}hug [mentioned user]**", value="Send a random embedded hugging gif.")
+            embed.add_field(name=f"**{self.client.command_prefix}joke**", value="Send a random embedded joke.")
+            embed.add_field(name=f"**{self.client.command_prefix}kiss [mentioned user]**", value="Send a random embedded kissing gif.")
+            embed.add_field(name=f"**{self.client.command_prefix}linespam <amount> <message>**", value="Spam multiple lines of <message> <amount> time(s).")
+            embed.add_field(name=f"**{self.client.command_prefix}phcomment <username> <message>**", value="Send a fake embedded image of a PornHub comment with <message> from <user>.")
+            embed.add_field(name=f"**{self.client.command_prefix}spam <amount> <message>**", value="Spam <message> <amount> time(s).")
+            embed.add_field(name=f"**{self.client.command_prefix}trumptweet <message>**", value="Send a fake embedded image of Donald Trump tweeting <message>.")
+            embed.add_field(name=f"**{self.client.command_prefix}tweet <username> <message>**", value="Send a fake embedded image of <username> tweeting <message>.")
+            embed.add_field(name=f"**{self.client.command_prefix}ud <query>**", value="Query Urban Dictionary for <query>, and send the most relevant result.")
+            embed.add_field(name=f"**{self.client.command_prefix}wiki <query>**", value="Query Wikipedia for <query>, and send the most relevant result.")
+            embed.add_field(name=f"**{self.client.command_prefix}wyr**", value="Send a random embedded Would You Rather question.")
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "nsfw":
-            embed = discord.Embed(title="**NSFW Commands**", description="not implemented mane", 
+            embed = discord.Embed(title="**NSFW Commands**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            embed.add_field(name=f"**{self.client.command_prefix}boobs**", value="Send a random embedded image of anime boobs.")
+            embed.add_field(name=f"**{self.client.command_prefix}hentai <category>**", value="Send an embedded hentai gif or image, based on <category>. Use the command to view the categories.")
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "malicious":
-            embed = discord.Embed(title="**Malicious Commands**", description="not implemented mane", 
+            embed = discord.Embed(title="**Malicious Commands**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            embed.add_field(name=f"**{self.client.command_prefix}crash**", value="Spam a multitude of emojis and characters in attempt to crash or lag a user's Discord client.")
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "util" or option.lower() == "utility":
-            embed = discord.Embed(title="**Utility Commands | Page 1**", description="not implemented mane", 
+            embed = discord.Embed(title="**Utility Commands | Page 1**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
+            embed.add_field(name=f"**{self.client.command_prefix}avatar [mentioned user]**", value="Send an embedded image or gif of the user's avatar.")
+            embed.add_field(name=f"**{self.client.command_prefix}base64 <option> <message>**", value="Encode or decode <message> to or from Base64.")
+            embed.add_field(name=f"**{self.client.command_prefix}backup <option>**", value="Create a backup of friends, servers, or both.")
+            embed.add_field(name=f"**{self.client.command_prefix}bump**", value="Send d!bump in the channel every 2 hours")
+            embed.add_field(name=f"**{self.client.command_prefix}cacheall [limit]**", value="Create a text file containing every message and attachment where the command is ran at. The default limit is 10000, but can be altered by [limit].")
+            embed.add_field(name=f"**{self.client.command_prefix}dmpurge [limit]**", value="Delete [limit] messages in a DM or Group. The default limit is 10000, but can be altered by [limit].")
+            embed.add_field(name=f"**{self.client.command_prefix}eval <command>**", value="Execute <command>, and send the output.")
+            embed.add_field(name=f"**{self.client.command_prefix}latency**", value="Send client latency.")
+            embed.add_field(name=f"**{self.client.command_prefix}light <option>**", value="Enable or disable Light Mode.")
+            embed.add_field(name=f"**{self.client.command_prefix}nitro <option> [code]**", value="Generate or check a Discord Nitro code.")
+            embed.add_field(name=f"**{self.client.command_prefix}prefix [prefix]**", value="View or change the current prefix.")
+            embed.add_field(name=f"**{self.client.command_prefix}purge <amount>**", value="Delete <amount> messages sent by you.")
+            embed.add_field(name=f"**{self.client.command_prefix}reload <option>**", value="Reload commands or Nuked.")
+            embed.add_field(name=f"**{self.client.command_prefix}settings**", value="Send an embed of your current settings for Nuked.")
+            embed.add_field(name=f"**{self.client.command_prefix}snipe**", value="Send a previously deleted message.")
+            embed.add_field(name=f"**{self.client.command_prefix}splash**", value="Reset the console's screen back to the splash.")
+            embed.add_field(name=f"**{self.client.command_prefix}status <type> <message>**", value="Change your user status to <type> and <message>.")
+            embed.add_field(name=f"**{self.client.command_prefix}theme [theme]**", value="View or change Nuked's current theme.")
+            embed.add_field(name=f"**{self.client.command_prefix}token <option> [token]**", value="Generate or check a token.")
+            embed.add_field(name=f"**{self.client.command_prefix}webhook <option> [webhook] [content]**", value="View information for, send content to, or delete a Discord webhook.", inline=False)
             await ctx.send(embed=embed, delete_after=25)
+        """
         elif option.lower() == "util 2" or option.lower() == "utility 2":
-            embed = discord.Embed(title="**Utility Commands | Page 2**", description="not implemented mane", 
+            embed = discord.Embed(title="**Utility Commands | Page 2**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             await ctx.send(embed=embed, delete_after=25)
+        """
