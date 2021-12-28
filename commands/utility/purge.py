@@ -9,7 +9,7 @@ class Purge(commands.Cog):
     def __init__(self, bot):
         self.client = bot
     @commands.command(aliases=["clear"])
-    async def purge(self, ctx, amount: int):
+    async def purge(self, ctx, amount: int = 1):
         await ctx.message.delete()
         async for message in ctx.channel.history(limit=amount):
             if message.author == self.client.user:
