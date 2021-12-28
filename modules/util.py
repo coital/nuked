@@ -184,10 +184,12 @@ def setup_rich_presence() -> bool:
         rpc.update(details=f"Connected | {version}",
                 large_image="avatar", start=time.time(),
                 join="Join")
+        return True
     except Exception as e:
         error(f"RPC Failed to initialize: [bold]{e}[/bold].")
         time.sleep(2.5)
-
+        
+    return False
 def enable_rich_presence() -> bool:
     return setup_rich_presence()
 
