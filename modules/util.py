@@ -3,14 +3,14 @@ from typing import Dict, List
 import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio
 
 try:
-    import fade, random, discord, requests
+    import colorama
+    import fade, random, discord, requests, pystyle
     import cursor
     from colorama import Fore
     from rich import color
     from rich.console import Console
     from pypresence import Presence
     from modules import init
-    console = Console(color_system="auto")
 except ImportError as e:
     if "discord" in e.name:
         package.install_module(module="discord.py-self")
@@ -19,6 +19,11 @@ except ImportError as e:
         print(f"Installed missing module {e.name}, restarting..")
     package.restart()
 
+console = Console(
+        color_system="auto", 
+        legacy_windows=True,
+        #soft_wrap=True
+    )
 version = "v6.01"
 version_float = 6.01
 global rpc
@@ -139,27 +144,28 @@ def enable_light_mode() -> Dict:
     return light_mode_commands
 
 def presplash():
-    console = Console()
     for letter in "Welcome":
         console.print(letter, justify="center")
         time.sleep(0.1)
     clear()
 
 def splash():
+    colorama.init(strip=True, wrap=True, convert=True, autoreset=True)
     with open("./config.json") as f:
         config = json.load(f)
     functions = [fade.purpleblue]
     if config["Random Splash Color"]:
         functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.random, fade.water]
     splash = random.choice(functions)("""                        
-                                     ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
-                                     ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
-                                     ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
-                                     ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
-                                     ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
-                                     ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
+              ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
+              ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
+              ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
+              ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
+              ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
+              ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
     """)
-    print(splash)
+    console.print(splash, justify="center")
+    colorama.deinit()
     console.print(f"[reset][bold]{version}[/bold][/reset]", justify="center")
     
 
