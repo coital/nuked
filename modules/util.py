@@ -74,7 +74,7 @@ def check_for_update():
         if ver > version_float:
             clear()
             log(f"Update for Nuked is available at https://github.com/coital/nuked. New version: v{ver}, current version: v{version_float}")
-            time.sleep(5)
+            input()
 
 def signal_handler(signal, frame):
     cursor.show()
@@ -185,7 +185,7 @@ def setup_rich_presence() -> bool:
 def enable_rich_presence() -> bool:
     return setup_rich_presence()
 
-async def disable_rich_presence() -> bool:
+def disable_rich_presence() -> bool:
     global rpc
-    await rpc.clear()
+    rpc.close()
     return True

@@ -37,7 +37,7 @@ if rich_presence:
 if util.os.name == "nt":
     package.install_module(module="win10toast")
 
-# util.check_for_update()
+util.check_for_update()
 
 try:
     cursor.hide()

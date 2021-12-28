@@ -24,7 +24,7 @@ class Status(commands.Cog):
             embed.add_field(name="**streaming**", value=f"have a `streaming` status.\nUsage: `{self.client.command_prefix}status streaming <text>`", inline=False)
             await ctx.send(embed=embed, delete_after=20)
         elif type.lower() == "playing":
-            await self.change_presence(activity=discord.Game(name=message), status=discord.Status.dnd)
+            await self.client.change_presence(activity=discord.Game(name=message), status=discord.Status.dnd)
             await ctx.send(f"set status to `playing {message}`", delete_after=10)
         elif type.lower() == "competing":
             await self.client.change_presence(activity=discord.Activity(name=message, type=ActivityType.competing), status=discord.Status.dnd)
