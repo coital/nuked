@@ -188,7 +188,6 @@ def setup_rich_presence() -> bool:
     except Exception as e:
         error(f"RPC Failed to initialize: [bold]{e}[/bold].")
         time.sleep(2.5)
-        
     return False
 def enable_rich_presence() -> bool:
     return setup_rich_presence()
