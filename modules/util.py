@@ -19,8 +19,8 @@ except ImportError as e:
         print(f"Installed missing module {e.name}, restarting..")
     package.restart()
 
-version = "v6.0"
-version_float = 6.0
+version = "v6.01"
+version_float = 6.01
 global rpc
 
 def clear():
