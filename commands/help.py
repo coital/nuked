@@ -80,8 +80,8 @@ class Help(commands.Cog):
             embed.add_field(name=f"**{self.client.command_prefix}status <type> <message>**", value="Change your user status to <type> and <message>.")
             embed.add_field(name=f"**{self.client.command_prefix}theme [theme]**", value="View or change Nuked's current theme.")
             embed.add_field(name=f"**{self.client.command_prefix}token <option> [token]**", value="Generate or check a token.")
-            embed.add_field(name=f"**{self.client.command_prefix}webhook <option> [webhook] [content]**", value="View information for, send content to, or delete a Discord webhook.", inline=False)
-            embed.add_field(name=f"**{self.client.command_prefix}logout**", value="Log out of Nuked and exit the process.", inline=False)
+            embed.add_field(name=f"**{self.client.command_prefix}webhook <option> [webhook] [content]**", value="View information for, send content to, or delete a Discord webhook.")
+            embed.add_field(name=f"**{self.client.command_prefix}logout**", value="Log out of Nuked and exit the process.")
 
             await ctx.send(embed=embed, delete_after=25)
         """
