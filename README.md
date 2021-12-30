@@ -14,3 +14,6 @@
 
 - Q: Does Nuked automatically install updates?
   - A: It will notify you if there is a new update, but it does not automatically install the update itself. It leaves you to decide whether or not you want to update. Automatic update notifications can be turned off in config.json.
+
+- Q: How frequent will updates release?
+  - A: Daily, weekly, or monthly. It all depends. However, full feature updates (x.1, x.2) will take longer to release than smaller updates (x.01, x.02).
