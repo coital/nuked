@@ -78,8 +78,9 @@ def check_for_update():
         ver = float(r.text)
         if ver > version_float:
             clear()
-            
-            log(f"[blink][link=https://github.com/coital/nuked]:information: Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version_float}")
+            console.bell()
+            log(f"[blink][link=https://github.com/coital/nuked]:alert: Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version_float}")
+            log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
             input()
 
 def signal_handler(signal, frame):
