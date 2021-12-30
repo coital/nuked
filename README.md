@@ -24,6 +24,9 @@
 - Q: Does it work on Linux?
   - A: Yes, it works on Linux and Windows, without needing code to be altered by the user.
 
+- Q: Is there a discussion where I can request a feature to be added?
+  - A: Yes, you can find that [here](https://github.com/coital/nuked/discussions/3)
+
 # Screenshots
 ![](https://i.imgur.com/7QMJcmJ.png)  
 ![](https://i.imgur.com/V1oh1IW.png)
