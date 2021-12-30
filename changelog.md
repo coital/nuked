@@ -4,3 +4,4 @@
 - Fixed an issue with the status command where the `playing` type would not work correctly.
 - Fixed issues where some commands would not delete the summoning message.
 - Added a new command: `logout`.
+- Improved features using the `rich` module.
