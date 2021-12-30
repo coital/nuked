@@ -7,7 +7,7 @@ try:
     import fade, random, discord, requests, pystyle
     import cursor
     from colorama import Fore
-    from rich import color
+    import rich
     from rich.console import Console
     from pypresence import Presence
     from modules import init
@@ -78,7 +78,8 @@ def check_for_update():
         ver = float(r.text)
         if ver > version_float:
             clear()
-            log(f"Update for Nuked is available at https://github.com/coital/nuked. New version: v{ver}, current version: v{version_float}")
+            
+            log(f"[blink][link=https://github.com/coital/nuked]:information: Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version_float}")
             input()
 
 def signal_handler(signal, frame):
@@ -150,19 +151,19 @@ def presplash():
     clear()
 
 def splash():
-    colorama.init(strip=True, wrap=True, convert=True, autoreset=True)
+    colorama.init(strip=True, convert=True, autoreset=True)
     with open("./config.json") as f:
         config = json.load(f)
     functions = [fade.purpleblue]
     if config["Random Splash Color"]:
         functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.random, fade.water]
     splash = random.choice(functions)("""                        
-              ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
-              ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
-              ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
-              ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
-              ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
-              ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
+                ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
+                ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
+                ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
+                ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
+                ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
+                ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
     """)
     console.print(splash, justify="center")
     colorama.deinit()

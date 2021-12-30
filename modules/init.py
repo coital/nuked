@@ -12,6 +12,7 @@ except ImportError as e:
 def init():
     from modules import util
     util.clear()
+    
     if util.sys.version_info < (3, 10):
         util.log("This selfbot requires [bold]Python 3.10[/bold].")
         input()
@@ -21,9 +22,9 @@ def init():
         with open("./config.json", "w") as fp:
             util.clear()
             util.log("Welcome to the initial setup process for the Nuked selfbot.")
-            setup_token = input("Enter your Discord token: ")
-            setup_password = input(
-                "Enter your Discord password (enter \"None\" or nothing if you don't want to): ")
+            setup_token = util.console.input("Enter your [bold]Discord token[/bold]: ")
+            setup_password = util.console.input(
+                "Enter your [bold]Discord password[/bold] (enter [bold]None[/bold] or press the [bold]Enter[/bold] key if you don't want to): ")
             if setup_password == "":
                 setup_password = "None"
             setup_data = {
