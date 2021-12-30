@@ -23,3 +23,6 @@
 
 - Q: Does it work on Linux?
   - A: Yes, it works on Linux and Windows, without needing code to be altered by the user.
+
+# Screenshots
+[!](https://i.imgur.com/7QMJcmJ.png)
