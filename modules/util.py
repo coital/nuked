@@ -24,8 +24,7 @@ console = Console(
         legacy_windows=True,
         #soft_wrap=True
     )
-version = "v6.01"
-version_float = 6.01
+version = 6.01
 global rpc
 
 def clear():
@@ -76,7 +75,7 @@ def check_for_update():
     if config["Automatically Check for Updates"]:
         r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version")
         ver = float(r.text)
-        if ver > version_float:
+        if ver > version:
             clear()
             console.bell()
             log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version_float}")
