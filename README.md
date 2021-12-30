@@ -2,7 +2,7 @@
 - 50+ features
 - Fast and lightweight.
 - Easy to use.
-- View the [changelog.](https://github.com/coital/nuked/blob/main/changelog.md)
+- View the [changelog.](https://github.com/coital/nuked/wiki/Changelog)
 - View the [Wiki.](https://github.com/coital/nuked/wiki)
 
 # Screenshots
