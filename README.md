@@ -20,3 +20,6 @@
 
 - Q: Is there a feature roadmap?
   - A: Nope, and I do not intend to create one.
+
+- Q: Does it work on Linux?
+  - A: Yes, it works on Linux and Windows, without needing code to be altered by the user.
