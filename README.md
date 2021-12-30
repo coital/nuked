@@ -17,3 +17,6 @@
 
 - Q: How frequent will updates release?
   - A: Daily, weekly, or monthly. It all depends. However, full feature updates (x.1, x.2) will take longer to release than smaller updates (x.01, x.02).
+
+- Q: Is there a feature roadmap?
+  - A: Nope, and I do not intend to create one.
