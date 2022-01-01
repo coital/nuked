@@ -66,8 +66,6 @@ def toast_message(message: str):
                     f"{message}",
                     duration=5,
                     threaded=True)
-    else:
-        pass
 
 def check_for_update():
     with open("./config.json") as f:
@@ -78,7 +76,7 @@ def check_for_update():
         if ver > version:
             clear()
             console.bell()
-            log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version_float}")
+            log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version}")
             log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
             input()
 
@@ -165,17 +163,19 @@ def splash():
                 ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
                 ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
     """)
-    console.print(splash, justify="center")
+    console.print(splash, justify="center", end="")
     colorama.deinit()
-    console.print(f"[reset][bold]{version}[/bold][/reset]", justify="center")
+    console.print(f"{version}\n", justify="center", style="reset")
+    r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd")
+    if r.status_code in (200, 204):
+        console.print(f"MOTD: [bold]{r.text}[/]", justify="center")
     
 
 def error(content: str):
-    console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]")
-
+    console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]", end="")
 
 def log(content: str):
-    console.print(f"\n[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]")
+    console.print(f"\n[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]", end="")
 
 def setup_rich_presence() -> bool:
     global rpc

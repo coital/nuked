@@ -58,9 +58,8 @@ class Nuked(commands.Bot):
         for command in util.load_commands():
             try:
                 self.load_extension(command)
-                util.log(f"Loaded cog: [bold]{command}[/bold]")
+                util.log(f"Loaded cog: [bold]{command}[/bold]\n")
             except commands.errors.ExtensionFailed as e:
-                # util.error(f"There was an extension exception in on_connect: [bold]{e.name}: {e.original}[/bold]") 
                 if isinstance(e.original, ModuleNotFoundError):
                     util.error(f"Missing module: [bold]{e.original.name}[/bold]. Attempting to install it.")
                     package.install_module(module=e.original.name)
@@ -71,15 +70,13 @@ class Nuked(commands.Bot):
         util.clear()
         util.presplash()
         util.splash()
-        util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
-        util.log(f"[bold]{self.user.name}#{self.user.discriminator}[/bold] was logged in.")
         if light_mode:
             util.set_title("Nuked - Enabling Light Mode")
             for command in util.enable_light_mode():
                 self.unload_extension(command)
             util.log("Light mode is enabled - commands will not work.")
-        else:
-            util.log(f"Loaded [bold]{util.load_commands().__len__()}[/bold] cogs.")
+        util.log(f"[bold]{self.user.name}#{self.user.discriminator}[/bold] was logged in.")
+        util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
         util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
 
 
