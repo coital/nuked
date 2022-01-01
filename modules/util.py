@@ -168,7 +168,7 @@ def splash():
     console.print(f"{version}\n", justify="center", style="reset")
     r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd")
     if r.status_code in (200, 204):
-        console.print(f"MOTD: [bold]{r.text}[/]", justify="center")
+        console.print(f"MOTD: [bold]{r.text}[/]", justify="center", end="")
     
 
 def error(content: str):
