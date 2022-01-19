@@ -24,7 +24,7 @@ console = Console(
         legacy_windows=True,
         #soft_wrap=True
     )
-version = 6.01
+version = 6.02
 global rpc
 
 def clear():
@@ -172,7 +172,7 @@ def splash():
     
 
 def error(content: str):
-    console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]", end="")
+    console.print(f"[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]")
 
 def log(content: str):
     console.print(f"[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]")
