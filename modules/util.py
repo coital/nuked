@@ -175,7 +175,7 @@ def error(content: str):
     console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]", end="")
 
 def log(content: str):
-    console.print(f"\n[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]", end="")
+    console.print(f"[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]")
 
 def setup_rich_presence() -> bool:
     global rpc
