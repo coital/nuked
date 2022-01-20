@@ -80,6 +80,15 @@ def check_for_update():
             log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
             input()
 
+def get_token(email: str, password: str):
+    r = requests.post("https://discord.com/api/v9/auth/login", json={"login":email,"password":password,"undelete":False,"captcha_key":None,"login_source":None,"gift_code_sku_id":None}, headers={"content-type": "application/json"})
+    try:
+        token = r.json()["token"]
+    except:
+        return None
+    else:
+        return token
+
 def signal_handler(signal, frame):
     cursor.show()
     clear()
@@ -98,6 +107,7 @@ def check_token(token: str):
         os.remove(f'{os.getcwd()}/config.json')
         clear()
         error('Invalid token.')
+        time.sleep(1)
         init.init()
 
 def insert_returns(body):

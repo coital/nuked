@@ -11,40 +11,80 @@ except ImportError as e:
 
 def init():
     
-    from modules.util import clear, log, console, check_token, get_config
+    from modules.util import clear, log, console, check_token, get_config, get_token, error
     clear()
     if not os.path.exists("./config.json"):
         clear()
-        with open("./config.json", "w") as fp:
-            clear()
-            log("Welcome to the initial setup process for the Nuked selfbot.")
-            setup_token = console.input("Enter your [bold]Discord token[/bold]: ")
-            setup_password = console.input(
-                "Enter your [bold]Discord password[/bold] (enter [bold]None[/bold] or press the [bold]Enter[/bold] key if you don't want to): ")
-            if setup_password == "":
-                setup_password = "None"
-            setup_data = {
-                "Discord Token": setup_token,
-                "Discord Password": setup_password,
-                "Discord Rich Presence": True,
-                "Default Prefix": ".",
-                "Enable Mention Logger": True,
-                "Enable Mention Blocker": False,
-                "Enable Light Mode": False,
-                "Disable Eval Command": False,
-                "Enable Slotbot Sniper": True,
-                "Enable Nitro Sniper": True,
-                "Automatically Check for Updates": True,
-                "Random Splash Color": False,
-                "Theme": "Default",
-                "Logging": {
-                    "Nitro Logger": ""
-                }
-            }
-            json.dump(setup_data, fp, indent=4)
-            log("[bold]Additional settings can be tweaked in config.json![/bold]")
-            time.sleep(2)
-            check_token(setup_data["Discord Token"])
+        log("Welcome to the initial setup process for the Nuked selfbot.")
+        choice = console.input("Enter '1' if you would like to log in using your Discord credentials ([bold]will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\n>")
+        match choice:
+            case '1':
+                with open("./config.json", "w") as fp:
+                    clear()
+                    setup_email = console.input("Enter your [bold]Discord email[/bold]: ")
+                    setup_password = console.input("Enter your [bold]Discord password[/bold]: ")
+                    token = get_token(setup_email, setup_password)
+                    if token != None:
+
+                        setup_data = {
+                            "Discord Token": token,
+                            "Discord Password": setup_password,
+                            "Discord Rich Presence": True,
+                            "Default Prefix": ".",
+                            "Enable Mention Logger": True,
+                            "Enable Mention Blocker": False,
+                            "Enable Light Mode": False,
+                            "Disable Eval Command": False,
+                            "Enable Slotbot Sniper": True,
+                            "Enable Nitro Sniper": True,
+                            "Automatically Check for Updates": True,
+                            "Random Splash Color": False,
+                            "Theme": "Default",
+                            "Logging": {
+                                "Nitro Logger": ""
+                            }
+                        }
+                        json.dump(setup_data, fp, indent=4)
+                        log("[bold]Additional settings can be tweaked in config.json![/bold]")
+                        time.sleep(2)
+                        check_token(setup_data["Discord Token"])
+                    else:
+                        error("The username and password combination was incorrect. Restarting..")
+                        os.remove("config.json")
+                        time.sleep(1)
+                        package.restart()
+            case '2':
+                with open("./config.json", "w") as fp:
+                    clear()
+                    setup_token = console.input("Enter your [bold]Discord token[/bold]: ")
+                    setup_password = console.input(
+                        "Enter your [bold]Discord password[/bold] (enter [bold]None[/bold] or press the [bold]Enter[/bold] key if you don't want to): ")
+                    if setup_password == "":
+                        setup_password = "None"
+                    setup_data = {
+                        "Discord Token": setup_token,
+                        "Discord Password": setup_password,
+                        "Discord Rich Presence": True,
+                        "Default Prefix": ".",
+                        "Enable Mention Logger": True,
+                        "Enable Mention Blocker": False,
+                        "Enable Light Mode": False,
+                        "Disable Eval Command": False,
+                        "Enable Slotbot Sniper": True,
+                        "Enable Nitro Sniper": True,
+                        "Automatically Check for Updates": True,
+                        "Random Splash Color": False,
+                        "Theme": "Default",
+                        "Logging": {
+                            "Nitro Logger": ""
+                        }
+                    }
+                    json.dump(setup_data, fp, indent=4)
+                    log("[bold]Additional settings can be tweaked in config.json![/bold]")
+                    time.sleep(2)
+                    check_token(setup_data["Discord Token"])
+            case _:
+                package.restart()
         clear()
     else:
         if os.path.getsize(f"{os.getcwd()}/config.json") == 0:
