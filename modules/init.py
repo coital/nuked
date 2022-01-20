@@ -10,20 +10,16 @@ except ImportError as e:
     package.restart()
 
 def init():
-    from modules import util
-    util.clear()
     
-    if util.sys.version_info < (3, 10):
-        util.log("This selfbot requires [bold]Python 3.10[/bold].")
-        input()
-        exit()
+    from modules.util import clear, log, console, check_token, get_config
+    clear()
     if not os.path.exists("./config.json"):
-        util.clear()
+        clear()
         with open("./config.json", "w") as fp:
-            util.clear()
-            util.log("Welcome to the initial setup process for the Nuked selfbot.")
-            setup_token = util.console.input("Enter your [bold]Discord token[/bold]: ")
-            setup_password = util.console.input(
+            clear()
+            log("Welcome to the initial setup process for the Nuked selfbot.")
+            setup_token = console.input("Enter your [bold]Discord token[/bold]: ")
+            setup_password = console.input(
                 "Enter your [bold]Discord password[/bold] (enter [bold]None[/bold] or press the [bold]Enter[/bold] key if you don't want to): ")
             if setup_password == "":
                 setup_password = "None"
@@ -46,13 +42,13 @@ def init():
                 }
             }
             json.dump(setup_data, fp, indent=4)
-            util.log("[bold]Additional settings can be tweaked in config.json![/bold]")
+            log("[bold]Additional settings can be tweaked in config.json![/bold]")
             time.sleep(2)
-            util.check_token(setup_data["Discord Token"])
-        util.clear()
+            check_token(setup_data["Discord Token"])
+        clear()
     else:
         if os.path.getsize(f"{os.getcwd()}/config.json") == 0:
             os.remove(f"{os.getcwd()}/config.json")
             package.restart()
         else:
-            util.check_token(util.get_config()["Discord Token"])
+            check_token(get_config()["Discord Token"])

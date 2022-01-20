@@ -1,4 +1,9 @@
-
+print("[status] initializing..")
+import sys
+if sys.version_info < (3, 10):
+    print("This selfbot requires Python 3.10.")
+    input()
+    exit()
 print("[status] loading package manager..")
 from modules import package, util, init
 print(f"[status] done loading package manager")
