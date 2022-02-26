@@ -1,6 +1,6 @@
 from modules import package
 from typing import Dict, List
-import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio
+import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio, re
 
 try:
     import colorama
@@ -99,6 +99,7 @@ def signal_handler(signal, frame):
     console.print("Logging out of Nuked", justify="center")
     time.sleep(1)
     clear()
+    check_for_update()
     exit(0)
 
 def check_token(token: str):
@@ -213,5 +214,4 @@ def disable_rich_presence() -> bool:
     rpc.close()
     return True
 
-def embed_to_str(embed: discord.Embed):
-    str = f"{embed.title} - {embed.author}\n\n{[field for field in embed.fields]}"
+    

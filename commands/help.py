@@ -30,6 +30,8 @@ class Help(commands.Cog):
             try:
                 await ctx.send(embed=embed, delete_after=25)
             except discord.HTTPException:
+                print(util.embed_to_str(embed))
+                await ctx.send(util.embed_to_str(embed))
                 await ctx.send(
                     f"""
 ```asciidoc
