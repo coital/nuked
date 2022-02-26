@@ -16,7 +16,8 @@ def init():
     if not os.path.exists("./config.json"):
         clear()
         log("Welcome to the initial setup process for the Nuked selfbot.")
-        choice = console.input("Enter '1' if you would like to log in using your Discord credentials ([bold]will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\n>")
+        log("If you're updating, you can move your current config.json here and use that configuration.")
+        choice = console.input("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\n>")
         match choice:
             case '1':
                 with open("./config.json", "w") as fp:
@@ -25,7 +26,6 @@ def init():
                     setup_password = console.input("Enter your [bold]Discord password[/bold]: ")
                     token = get_token(setup_email, setup_password)
                     if token != None:
-
                         setup_data = {
                             "Discord Token": token,
                             "Discord Password": setup_password,

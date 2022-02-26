@@ -9,6 +9,6 @@ class OnGuildRemove(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
     @commands.Cog.listener()
-    async def on_message_remove(self, guild):
+    async def on_guild_remove(self, guild: discord.Guild):
         util.log(f"A guild was removed: [bold]{guild.name}[/bold]")
     
