@@ -27,6 +27,7 @@ def init():
                     token = get_token(setup_email, setup_password)
                     if token != None:
                         setup_data = {
+                            "Auto Update": True,
                             "Discord Token": token,
                             "Discord Password": setup_password,
                             "Discord Rich Presence": True,
