@@ -24,11 +24,15 @@ console = Console(
         legacy_windows=True,
         #soft_wrap=True
     )
-version = 6.02
+utd_api = 10
+version = 6.03
 global rpc
 
 def clear():
     os.system("clear" if os.name != "nt" else "cls")
+
+def get_utd_api_link() -> str:
+    return f"https://discord.com/api/v{utd_api}"
 
 def set_title(title: str):
     if os.name == "nt":
@@ -81,7 +85,7 @@ def check_for_update():
             input()
 
 def get_token(email: str, password: str):
-    r = requests.post("https://discord.com/api/v9/auth/login", json={"login":email,"password":password,"undelete":False,"captcha_key":None,"login_source":None,"gift_code_sku_id":None}, headers={"content-type": "application/json"})
+    r = requests.post(f"{get_utd_api_link()}/auth/login", json={"login":email,"password":password,"undelete":False,"captcha_key":None,"login_source":None,"gift_code_sku_id":None}, headers={"content-type": "application/json"})
     try:
         token = r.json()["token"]
     except:
@@ -100,7 +104,7 @@ def signal_handler(signal, frame):
 def check_token(token: str):
     headers = {"Content-Type": "application/json", "authorization": token}
     r = requests.get(
-        "https://discordapp.com/api/v9/users/@me/library", headers=headers)
+        f"{get_utd_api_link()}/users/@me/library", headers=headers)
     if r.status_code == 200:
         return
     else:
@@ -200,6 +204,7 @@ def setup_rich_presence() -> bool:
         error(f"RPC Failed to initialize: [bold]{e}[/bold].")
         time.sleep(2.5)
     return False
+
 def enable_rich_presence() -> bool:
     return setup_rich_presence()
 
@@ -207,3 +212,6 @@ def disable_rich_presence() -> bool:
     global rpc
     rpc.close()
     return True
+
+def embed_to_str(embed: discord.Embed):
+    str = f"{embed.title} - {embed.author}\n\n{[field for field in embed.fields]}"

@@ -27,26 +27,61 @@ class Help(commands.Cog):
         embed.set_footer(
             text="Nuked", icon_url="https://cdn.discordapp.com/attachments/820836670857412710/820946025799745576/avatar.png")
         if not option:
-            await ctx.send(embed=embed, delete_after=25)
+            try:
+                await ctx.send(embed=embed, delete_after=25)
+            except discord.HTTPException:
+                await ctx.send(
+                    f"""
+```asciidoc
+Nuked         :: {self.client.user.name}#{self.client.user.discriminator}
+Command count :: {len(self.client.all_commands)}
+Prefix        :: {self.client.command_prefix}
+
+= Help =
+
+help fun       :: show fun-related commands
+help utility   :: show utility-related commands
+help malicious :: show malicious-related commands
+help nsfw      :: show nsfw-related commands
+```
+                    """, delete_after=25)
         elif option.lower() == "fun":
             embed = discord.Embed(title="**Fun Commands**", description="<> - required\n[] - optional",
             color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name=f"**{self.client.command_prefix}ascii <text>**", value="Send <text> in ASCII art.")
-            embed.add_field(name=f"**{self.client.command_prefix}cat**", value="Send a random embedded image of a cat.")
-            embed.add_field(name=f"**{self.client.command_prefix}clyde <message>**", value="Send an embedded image of Discord's Clyde saying <text>.")
-            embed.add_field(name=f"**{self.client.command_prefix}embed <text>**", value="Send an embed containing <text>.")
-            embed.add_field(name=f"**{self.client.command_prefix}hug [mentioned user]**", value="Send a random embedded hugging gif.")
-            embed.add_field(name=f"**{self.client.command_prefix}joke**", value="Send a random embedded joke.")
-            embed.add_field(name=f"**{self.client.command_prefix}kiss [mentioned user]**", value="Send a random embedded kissing gif.")
+            embed.add_field(name=f"**{self.client.command_prefix}cat**", value="Send a random image of a cat.")
+            embed.add_field(name=f"**{self.client.command_prefix}clyde <message>**", value="Send an image of Discord's Clyde saying <message>.")
+            embed.add_field(name=f"**{self.client.command_prefix}hug [mentioned user]**", value="Send a random hugging gif.")
+            embed.add_field(name=f"**{self.client.command_prefix}joke**", value="Send a random joke.")
+            embed.add_field(name=f"**{self.client.command_prefix}kiss [mentioned user]**", value="Send a random kissing gif.")
             embed.add_field(name=f"**{self.client.command_prefix}linespam <amount> <message>**", value="Spam multiple lines of <message> <amount> time(s).")
-            embed.add_field(name=f"**{self.client.command_prefix}phcomment <username> <message>**", value="Send a fake embedded image of a PornHub comment with <message> from <user>.")
+            embed.add_field(name=f"**{self.client.command_prefix}phcomment <username> <message>**", value="Send a fake image of a PornHub comment with <message> from <user>.")
             embed.add_field(name=f"**{self.client.command_prefix}spam <amount> <message>**", value="Spam <message> <amount> time(s).")
-            embed.add_field(name=f"**{self.client.command_prefix}trumptweet <message>**", value="Send a fake embedded image of Donald Trump tweeting <message>.")
-            embed.add_field(name=f"**{self.client.command_prefix}tweet <username> <message>**", value="Send a fake embedded image of <username> tweeting <message>.")
+            embed.add_field(name=f"**{self.client.command_prefix}trumptweet <message>**", value="Send a fake image of Donald Trump tweeting <message>.")
+            embed.add_field(name=f"**{self.client.command_prefix}tweet <username> <message>**", value="Send a fake image of <username> tweeting <message>.")
             embed.add_field(name=f"**{self.client.command_prefix}ud <query>**", value="Query Urban Dictionary for <query>, and send the most relevant result.")
             embed.add_field(name=f"**{self.client.command_prefix}wiki <query>**", value="Query Wikipedia for <query>, and send the most relevant result.")
-            embed.add_field(name=f"**{self.client.command_prefix}wyr**", value="Send a random embedded Would You Rather question.")
-            await ctx.send(embed=embed, delete_after=25)
+            embed.add_field(name=f"**{self.client.command_prefix}wyr**", value="Send a random Would You Rather question.")
+            try:
+                await ctx.send(embed=embed, delete_after=25)
+            except discord.HTTPException:
+                await ctx.send(
+                    f"""
+```asciidoc
+Prefix        :: {self.client.command_prefix}
+
+= Fun =
+
+ascii <text>    :: Send <text> in ASCII art.
+cat             :: Send a random image of a cat. 
+clyde <message> :: Send an image of Discord's Clyde saying <message>.
+hug [user]      :: Send a hugging gif.
+joke            :: Send a random joke.
+kiss [user]     :: Send a random kissing gif.
+ls <int> <text> :: Spam multiple lines of <text> <int> times.
+
+```
+                    """, delete_after=25)
         elif option.lower() == "nsfw":
             embed = discord.Embed(title="**NSFW Commands**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
@@ -57,6 +92,7 @@ class Help(commands.Cog):
             embed = discord.Embed(title="**Malicious Commands**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name=f"**{self.client.command_prefix}crash**", value="Spam a multitude of emojis and characters in attempt to crash or lag a user's Discord client.")
+            embed.add_field(name=f"**{self.client.command_prefix}massdm <message>**", value="DM everybody in the server <message>.")
             await ctx.send(embed=embed, delete_after=25)
         elif option.lower() == "util" or option.lower() == "utility":
             embed = discord.Embed(title="**Utility Commands | Page 1**", description="<> - required\n[] - optional",
