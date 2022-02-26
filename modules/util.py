@@ -1,9 +1,10 @@
 from modules import package
 from typing import Dict, List
-import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio, re
+import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio, re, shutil
 
 try:
     import colorama
+    from git import Repo
     import fade, random, discord, requests, pystyle
     import cursor
     from colorama import Fore
@@ -22,7 +23,7 @@ except ImportError as e:
 console = Console(
         color_system="auto", 
         legacy_windows=True,
-        #soft_wrap=True
+      # soft_wrap=True
     )
 utd_api = 10
 version = 6.03
@@ -31,8 +32,33 @@ global rpc
 def clear():
     os.system("clear" if os.name != "nt" else "cls")
 
+def check_for_update():
+    with open("./config.json") as f:
+        config = json.load(f)
+    if config["Automatically Check for Updates"]:
+        r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version")
+        ver = float(r.text)
+        if ver > version:
+            clear()
+            console.bell()
+            log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version}")
+            log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
+            input()
+    if config["Auto Update"]:
+        auto_update()
+
 def get_utd_api_link() -> str:
     return f"https://discord.com/api/v{utd_api}"
+
+def auto_update():
+    r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/version")
+    try:
+        os.mkdir(f"./{r.text}")
+    except:
+        return
+    repo = Repo.clone_from("git://github.com/coital/nuked.git", f"./{r.text}")
+    repo.close()
+    log(f"New Nuked version is in ./{r.text}.")
 
 def set_title(title: str):
     if os.name == "nt":
@@ -71,18 +97,7 @@ def toast_message(message: str):
                     duration=5,
                     threaded=True)
 
-def check_for_update():
-    with open("./config.json") as f:
-        config = json.load(f)
-    if config["Automatically Check for Updates"]:
-        r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version")
-        ver = float(r.text)
-        if ver > version:
-            clear()
-            console.bell()
-            log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version}")
-            log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
-            input()
+
 
 def get_token(email: str, password: str):
     r = requests.post(f"{get_utd_api_link()}/auth/login", json={"login":email,"password":password,"undelete":False,"captcha_key":None,"login_source":None,"gift_code_sku_id":None}, headers={"content-type": "application/json"})
