@@ -39,13 +39,15 @@ def check_for_update():
         r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version")
         ver = float(r.text)
         if ver > version:
-            clear()
-            console.bell()
-            log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version}")
-            log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
-            input()
-        if config["Auto Update"]:
-            auto_update()
+            if config["Auto Update"]:
+                auto_update()
+            else:
+                clear()
+                console.bell()
+                log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version}")
+                log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
+                input()
+        
 
 def get_utd_api_link() -> str:
     return f"https://discord.com/api/v{utd_api}"
