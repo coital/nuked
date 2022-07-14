@@ -26,7 +26,7 @@ console = Console(
       # soft_wrap=True
     )
 utd_api = 10
-version = 6.03
+version = 6.04
 global rpc
 
 def clear():
