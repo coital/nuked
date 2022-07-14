@@ -124,7 +124,7 @@ def init():
                     check_token(setup_data["Discord Token"])
             case _:
                 package.restart()
-        clear()
+        # clear()
     else:
         if os.path.getsize(f"{os.getcwd()}/config.json") == 0:
             os.remove(f"{os.getcwd()}/config.json")
