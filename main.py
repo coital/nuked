@@ -1,4 +1,5 @@
 print("[status] initializing..")
+from faulthandler import disable
 import sys
 if sys.version_info < (3, 10):
     print("This selfbot requires Python 3.10.")
@@ -35,6 +36,7 @@ with open("./config.json") as f:
 token = config["Discord Token"]
 light_mode = config["Enable Light Mode"]
 rich_presence = config["Discord Rich Presence"]
+disable_cog_message = config["Disable Cog Load Message"]
 
 if rich_presence:
     util.setup_rich_presence()
@@ -60,10 +62,13 @@ class Nuked(commands.Bot):
         self.sniped_message_dict = {}
         self.sniped_edited_message_dict = {}
         await self.change_presence(activity=None, status=discord.Status.dnd)
+        if disable_cog_message:
+            util.log("Loading..")
         for command in util.load_commands():
             try:
                 self.load_extension(command)
-                util.log(f"Loaded cog: [bold]{command}[/bold]\n")
+                if not disable_cog_message:
+                    util.log(f"Loaded cog: [bold]{command}[/bold]\n")
             except commands.errors.ExtensionFailed as e:
                 if isinstance(e.original, ModuleNotFoundError):
                     util.error(f"Missing module: [bold]{e.original.name}[/bold]. Attempting to install it.")

@@ -23,9 +23,6 @@ class Help(commands.Cog):
                         value=f"{self.client.command_prefix}help malicious", inline=False)
         embed.add_field(name="**Utility Commands**",
                         value=f"{self.client.command_prefix}help util", inline=False)
-        embed.set_thumbnail(url=self.client.user.avatar_url)
-        embed.set_footer(
-            text="Nuked", icon_url="https://cdn.discordapp.com/attachments/820836670857412710/820946025799745576/avatar.png")
         if not option:
             try:
                 await ctx.send(util.embed_to_str(embed), delete_after=25)
@@ -75,6 +72,12 @@ class Help(commands.Cog):
             embed.add_field(name=f"**{self.client.command_prefix}latency**", value="Send client latency.")
             embed.add_field(name=f"**{self.client.command_prefix}light <option>**", value="Enable or disable Light Mode.")
             embed.add_field(name=f"**{self.client.command_prefix}nitro <option> [code]**", value="Generate or check a Discord Nitro code.")
+            embed.set_footer(text=f"To view more utility commands, use {self.client.command_prefix}help {option.lower()} 2")
+
+            await ctx.send(util.embed_to_str(embed), delete_after=25)
+        elif option.lower() == "util 2" or option.lower() == "utility 2":
+            embed = discord.Embed(title="**Utility Commands | Page 2**", description="<> - required\n[] - optional",
+                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name=f"**{self.client.command_prefix}prefix [prefix]**", value="View or change the current prefix.")
             embed.add_field(name=f"**{self.client.command_prefix}purge <amount>**", value="Delete <amount> messages sent by you.")
             embed.add_field(name=f"**{self.client.command_prefix}reload <option>**", value="Reload commands or Nuked.")
@@ -86,11 +89,4 @@ class Help(commands.Cog):
             embed.add_field(name=f"**{self.client.command_prefix}token <option> [token]**", value="Generate or check a token.")
             embed.add_field(name=f"**{self.client.command_prefix}webhook <option> [webhook] [content]**", value="View information for, send content to, or delete a Discord webhook.")
             embed.add_field(name=f"**{self.client.command_prefix}logout**", value="Log out of Nuked and exit the process.")
-
             await ctx.send(util.embed_to_str(embed), delete_after=25)
-        """
-        elif option.lower() == "util 2" or option.lower() == "utility 2":
-            embed = discord.Embed(title="**Utility Commands | Page 2**", description="<> - required\n[] - optional",
-                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
-            await ctx.send(embed=embed, delete_after=25)
-        """

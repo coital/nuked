@@ -18,7 +18,7 @@ def init():
         clear()
         log("Welcome to the initial setup process for the Nuked selfbot.")
         log("If you're updating, you can move your current config.json here and use that configuration.\n")
-        choice = console.input("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\nEnter '3' if you would like Nuked to automatically detect Discord accounts.\n>")
+        choice = console.input("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\nEnter '3' if you would like Nuked to automatically detect Discord accounts [bold](Experimental)[/bold].\n>")
         match choice:
             case '1':
                 with open("./config.json", "w") as fp:
@@ -42,6 +42,7 @@ def init():
                             "Automatically Check for Updates": True,
                             "Random Splash Color": False,
                             "Theme": "Default",
+                            "Disable Cog Load Message": True,
                             "Logging": {
                                 "Nitro Logger": ""
                             }
@@ -77,6 +78,7 @@ def init():
                         "Automatically Check for Updates": True,
                         "Random Splash Color": False,
                         "Theme": "Default",
+                        "Disable Cog Load Message": True,
                         "Logging": {
                             "Nitro Logger": ""
                         }
@@ -90,7 +92,7 @@ def init():
                 print(f'\nItems found: {len(accounts)}')
                 print('Accounts:')
                 for item in accounts:
-                    print(f'{utd.get_username(item)} -- {item[:24]}')
+                    print(f'{utd.get_username(item)} -- {item[:24]}..')
                 num = console.input(f'\nOut of the {len(accounts)} tokens, which one would you like to log into?\n\n>')
                 slice = int(num)
                 if slice == 1:
@@ -111,6 +113,7 @@ def init():
                         "Automatically Check for Updates": True,
                         "Random Splash Color": False,
                         "Theme": "Default",
+                        "Disable Cog Load Message": True,
                         "Logging": {
                             "Nitro Logger": ""
                         }
