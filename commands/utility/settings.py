@@ -39,6 +39,6 @@ class Settings(commands.Cog):
         embed.add_field(name="**Default Prefix**", value=default_prefix, inline=True)
         embed.add_field(name="**Nitro Logger (Webhook)**", value="on" if nitro_logger_enabled else "off", inline=True)
         embed.add_field(name="**Theme**", value=f"{util.get_config()['Theme']}", inline=True)
-        await ctx.send(embed=embed, delete_after=20)
+        await ctx.send(util.embed_to_str(embed), delete_after=20)
         
     

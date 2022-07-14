@@ -14,7 +14,7 @@ class Theme(commands.Cog):
         if not new_theme:
             embed = discord.Embed(title="**Nuked | Theme**", description=f"The current theme is `{util.get_config()['Theme']}`,\nbut you can change it by using `{self.client.command_prefix}theme <theme>`",
                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
-            await ctx.send(embed=embed, delete_after=15)
+            await ctx.send(util.embed_to_str(embed), delete_after=15)
         else:
             match new_theme.lower():
                 case "light pink":

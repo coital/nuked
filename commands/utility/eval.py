@@ -43,7 +43,8 @@ class Eval(commands.Cog):
                     "sys": util.sys,
                     "asyncio": util.asyncio,
                     "time": util.time,
-                    "datetime": util.datetime
+                    "datetime": util.datetime,
+                    "util": util
                 }
                 exec(compile(parsed, filename="<ast>", mode="exec"), env)
 

@@ -16,7 +16,7 @@ class Reload(commands.Cog):
                               color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name="**Reloading Nuked**", value=f"to reload Nuked, use `{self.client.command_prefix}reload nuked`, `{self.client.command_prefix}reload sb` or `{self.client.command_prefix}reload selfbot`.", inline=False)
             embed.add_field(name="**Reloading Cogs**", value=f"to reload cogs, use `{self.client.command_prefix}reload cogs` or `{self.client.command_prefix}reload commands`.", inline=False)
-            await ctx.send(embed=embed, delete_after=20)
+            await ctx.send(util.embed_to_str(embed), delete_after=20)
         elif arg.lower() == "cogs" or arg.lower() == "commands":
             for command in util.load_commands():
                 self.client.reload_extension(command)

@@ -15,5 +15,5 @@ class Hug(commands.Cog):
         embed = discord.Embed(description=f"<@{self.client.user.id}> hugs {f'<@{member.id}>' if member else ''}",
                           color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
         embed.set_image(url=r.json()['url'])
-        await ctx.send(embed=embed, delete_after=20)
+        await ctx.send(util.embed_to_str(embed), delete_after=20)
     

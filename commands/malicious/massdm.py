@@ -14,14 +14,13 @@ class MassDM(commands.Cog):
     async def massdm(self, ctx, *, message: str = None):
         await ctx.message.delete()
         for user in ctx.guild.members:
-            if user == self.client.user:
-                pass
-            try:
-                await user.send(f"{message}")
-                await asyncio.sleep(0.5)
-            except:
-                util.error(f"MassDM failed to DM {user}, sleeping for 0.5")
-                await asyncio.sleep(0.5)
+            if user != self.client.user:
+                try:
+                    await user.send(f"{message}")
+                    await asyncio.sleep(0.5)
+                except:
+                    util.error(f"MassDM failed to DM {user}, sleeping for 0.5")
+                    await asyncio.sleep(0.5)
         
                 
         

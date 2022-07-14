@@ -19,7 +19,7 @@ class Backup(commands.Cog):
         embed.add_field(name="**Complete Backup**", value=f"to backup everything, use `{self.client.command_prefix}backup all`.", inline=False)
         await ctx.message.delete()
         if not option:
-            await ctx.send(embed=embed, delete_after=20)
+            await ctx.send(util.embed_to_str(embed), delete_after=20)
         else:
             match option.lower():
                 case "friends":

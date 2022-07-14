@@ -14,5 +14,5 @@ class Avatar(commands.Cog):
         embed = discord.Embed(title=f"{member}'s avatar", color=util.get_color(),
                             timestamp=datetime.datetime.utcfromtimestamp(util.time.time()))
         embed.set_image(url=member.avatar_url)
-        await ctx.send(embed=embed, delete_after=25)
+        await ctx.send(util.embed_to_str(embed), delete_after=25)
     

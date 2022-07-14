@@ -10,9 +10,9 @@ class Boobs(commands.Cog):
     @commands.command()
     async def boobs(self, ctx):
         await ctx.message.delete()
-        r = requests.get("https://nekos.life/api/v2/img/boobs")
+        r = requests.get("https://nekobot.xyz/api/image?type=boobs")
         embed = discord.Embed(
             color=util.get_color(), timestamp=util.datetime.datetime.utcfromtimestamp(util.time.time()))
-        embed.set_image(url=r.json()['url'])
-        await ctx.send(embed=embed, delete_after=20)
+        embed.set_image(url=r.json()['message'])
+        await ctx.send(util.embed_to_str(embed), delete_after=20)
                 

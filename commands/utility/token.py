@@ -50,7 +50,7 @@ class Token(commands.Cog):
         embed.add_field(name="**Locking a Token**", value=f"to lock a Discord token, use `{self.client.command_prefix}token lock <token>`.", inline=False)
         embed.add_field(name="**Generating a Token**", value=f"to generate a Discord token, use `{self.client.command_prefix}token generate`.", inline=False)
         if not option:
-            await ctx.send(embed=embed, delete_after=20)
+            await ctx.send(util.embed_to_str(embed), delete_after=20)
         else:
             match option:
                 case "info":
@@ -86,7 +86,7 @@ class Token(commands.Cog):
                                 embed.add_field(name="**Has Nitro?**", value=f"{nitro}", inline=False)
                                 embed.add_field(name="**Verified?**", value=f"{verified}", inline=False)
                             
-                                await ctx.send(embed=embed, delete_after=25)
+                                await ctx.send(util.embed_to_str(embed), delete_after=25)
                             else:
                                 await ctx.send(f"invalid token, response code {response.status}", delete_after=10)
                 case "generate":
@@ -96,6 +96,6 @@ class Token(commands.Cog):
                     embed = discord.Embed(title="**Discord Token**", description="note: this token likely does not belong to an actual account.", 
                                           color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
                     embed.add_field(name="**Token**", value=f"{token}")
-                    await ctx.send(embed=embed, delete_after=20)
+                    await ctx.send(util.embed_to_str(embed), delete_after=20)
                     
     

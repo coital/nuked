@@ -1,4 +1,4 @@
-import discord, datetime, time
+import discord, datetime, time, requests
 from discord.ext import commands
 from modules import util
 
@@ -28,25 +28,10 @@ class Help(commands.Cog):
             text="Nuked", icon_url="https://cdn.discordapp.com/attachments/820836670857412710/820946025799745576/avatar.png")
         if not option:
             try:
-                await ctx.send(embed=embed, delete_after=25)
+                await ctx.send(util.embed_to_str(embed), delete_after=25)
             except discord.HTTPException:
                 print(util.embed_to_str(embed))
-                await ctx.send(util.embed_to_str(embed))
-                await ctx.send(
-                    f"""
-```asciidoc
-Nuked         :: {self.client.user.name}#{self.client.user.discriminator}
-Command count :: {len(self.client.all_commands)}
-Prefix        :: {self.client.command_prefix}
-
-= Help =
-
-help fun       :: show fun-related commands
-help utility   :: show utility-related commands
-help malicious :: show malicious-related commands
-help nsfw      :: show nsfw-related commands
-```
-                    """, delete_after=25)
+                await ctx.send(util.embed_to_str(embed), delete_after=25)
         elif option.lower() == "fun":
             embed = discord.Embed(title="**Fun Commands**", description="<> - required\n[] - optional",
             color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
@@ -64,26 +49,7 @@ help nsfw      :: show nsfw-related commands
             embed.add_field(name=f"**{self.client.command_prefix}ud <query>**", value="Query Urban Dictionary for <query>, and send the most relevant result.")
             embed.add_field(name=f"**{self.client.command_prefix}wiki <query>**", value="Query Wikipedia for <query>, and send the most relevant result.")
             embed.add_field(name=f"**{self.client.command_prefix}wyr**", value="Send a random Would You Rather question.")
-            try:
-                await ctx.send(embed=embed, delete_after=25)
-            except discord.HTTPException:
-                await ctx.send(
-                    f"""
-```asciidoc
-Prefix        :: {self.client.command_prefix}
-
-= Fun =
-
-ascii <text>    :: Send <text> in ASCII art.
-cat             :: Send a random image of a cat. 
-clyde <message> :: Send an image of Discord's Clyde saying <message>.
-hug [user]      :: Send a hugging gif.
-joke            :: Send a random joke.
-kiss [user]     :: Send a random kissing gif.
-ls <int> <text> :: Spam multiple lines of <text> <int> times.
-
-```
-                    """, delete_after=25)
+            await ctx.send(util.embed_to_str(embed), delete_after=25)
         elif option.lower() == "nsfw":
             embed = discord.Embed(title="**NSFW Commands**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
@@ -95,7 +61,7 @@ ls <int> <text> :: Spam multiple lines of <text> <int> times.
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             embed.add_field(name=f"**{self.client.command_prefix}crash**", value="Spam a multitude of emojis and characters in attempt to crash or lag a user's Discord client.")
             embed.add_field(name=f"**{self.client.command_prefix}massdm <message>**", value="DM everybody in the server <message>.")
-            await ctx.send(embed=embed, delete_after=25)
+            await ctx.send(util.embed_to_str(embed), delete_after=25)
         elif option.lower() == "util" or option.lower() == "utility":
             embed = discord.Embed(title="**Utility Commands | Page 1**", description="<> - required\n[] - optional",
                                    color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
@@ -121,7 +87,7 @@ ls <int> <text> :: Spam multiple lines of <text> <int> times.
             embed.add_field(name=f"**{self.client.command_prefix}webhook <option> [webhook] [content]**", value="View information for, send content to, or delete a Discord webhook.")
             embed.add_field(name=f"**{self.client.command_prefix}logout**", value="Log out of Nuked and exit the process.")
 
-            await ctx.send(embed=embed, delete_after=25)
+            await ctx.send(util.embed_to_str(embed), delete_after=25)
         """
         elif option.lower() == "util 2" or option.lower() == "utility 2":
             embed = discord.Embed(title="**Utility Commands | Page 2**", description="<> - required\n[] - optional",

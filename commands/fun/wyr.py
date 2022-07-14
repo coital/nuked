@@ -22,5 +22,5 @@ class WYR(commands.Cog):
             color=util.get_color(), 
             description=f"**{qa}**\n\n{qor}\n\n**{qb}**", 
             timestamp=datetime.datetime.utcfromtimestamp(time.time()))
-        await ctx.send(embed=embed, delete_after=25)
+        await ctx.send(util.embed_to_str(embed), delete_after=25)
     

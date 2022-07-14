@@ -231,4 +231,15 @@ def disable_rich_presence() -> bool:
     rpc.close()
     return True
 
+def embed_to_str(embed: discord.Embed) -> str:
+    from discord.embeds import EmbedProxy
+    str = f"""{embed.title if embed.title else ""}\n{embed.description if embed.description else ""}\n"""
+    embeds = embed.fields
+    if len(embeds) > 0:
+        for em in embeds:
+            str +=  f"""{em.name} : {em.value}\n"""
+
+    str += f"""\n{embed.image.url if embed.image else ""}\n{embed.thumbnail.url if embed.thumbnail else ""}"""
+    return str
+        
     

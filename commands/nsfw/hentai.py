@@ -14,5 +14,5 @@ class Hentai(commands.Cog):
         embed = discord.Embed(
             color=util.get_color(), timestamp=util.datetime.datetime.utcfromtimestamp(util.time.time()))
         embed.set_image(url=hmtai.useHM("1", util.random.choice(categories)))
-        await ctx.send(embed=embed, delete_after=20)
+        await ctx.send(util.embed_to_str(embed), delete_after=20)
                 

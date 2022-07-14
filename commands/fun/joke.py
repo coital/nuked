@@ -16,6 +16,6 @@ class Joke(commands.Cog):
                 json = await response.json()
                 embed = discord.Embed(title="**Joke**", color=util.get_color(),
                           description=f"{json['joke']}", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
-                await ctx.send(embed=embed, delete_after=25)
+                await ctx.send(util.embed_to_str(embed), delete_after=25)
                 await session.close()
     

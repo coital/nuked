@@ -12,12 +12,13 @@ except ImportError as e:
 def init():
     
     from modules.util import clear, log, console, check_token, get_config, get_token, error
+    import modules.util_detect_token as utd
     clear()
     if not os.path.exists("./config.json"):
         clear()
         log("Welcome to the initial setup process for the Nuked selfbot.")
-        log("If you're updating, you can move your current config.json here and use that configuration.")
-        choice = console.input("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\n>")
+        log("If you're updating, you can move your current config.json here and use that configuration.\n")
+        choice = console.input("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\nEnter '3' if you would like Nuked to automatically detect Discord accounts.\n>")
         match choice:
             case '1':
                 with open("./config.json", "w") as fp:
@@ -65,6 +66,40 @@ def init():
                     setup_data = {
                         "Discord Token": setup_token,
                         "Discord Password": setup_password,
+                        "Discord Rich Presence": True,
+                        "Default Prefix": ".",
+                        "Enable Mention Logger": True,
+                        "Enable Mention Blocker": False,
+                        "Enable Light Mode": False,
+                        "Disable Eval Command": False,
+                        "Enable Slotbot Sniper": True,
+                        "Enable Nitro Sniper": True,
+                        "Automatically Check for Updates": True,
+                        "Random Splash Color": False,
+                        "Theme": "Default",
+                        "Logging": {
+                            "Nitro Logger": ""
+                        }
+                    }
+                    json.dump(setup_data, fp, indent=4)
+                    log("[bold]Additional settings can be tweaked in config.json![/bold]")
+                    time.sleep(2)
+                    check_token(setup_data["Discord Token"])
+            case '3':
+                accounts = utd.detect_tokens()
+                print(f'\nItems found: {len(accounts)}')
+                print('Accounts:')
+                for item in accounts:
+                    print(f'{utd.get_username(item)} -- {item[:24]}')
+                num = console.input(f'\nOut of the {len(accounts)} tokens, which one would you like to log into?\n\n>')
+                slice = int(num)
+                if slice == 1:
+                    slice = 0
+                with open("./config.json", "w") as fp:
+                    clear()
+                    setup_data = {
+                        "Discord Token": accounts[slice],
+                        "Discord Password": None,
                         "Discord Rich Presence": True,
                         "Default Prefix": ".",
                         "Enable Mention Logger": True,

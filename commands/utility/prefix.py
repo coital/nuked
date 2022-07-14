@@ -14,7 +14,7 @@ class Prefix(commands.Cog):
         if not new_prefix:
             embed = discord.Embed(title="**Nuked | Prefix**", description=f"The current prefix is `{self.client.command_prefix}`,\nbut you can change it by using `{self.client.command_prefix}prefix <prefix>`",
                                   color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
-            await ctx.send(embed=embed, delete_after=15)
+            await ctx.send(util.embed_to_str(embed), delete_after=15)
         else:
             old_prefix = self.client.command_prefix
             self.client.command_prefix = new_prefix

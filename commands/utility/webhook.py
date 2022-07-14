@@ -20,7 +20,7 @@ class Webhook(commands.Cog):
             embed.add_field(name="**Posting Content to a Webhook**", value=f"to post a message to a webhook, use `{self.client.command_prefix}webhook post <webhook> <message>`.", inline=False)
             embed.add_field(name="**Deleting a Webhook**", value=f"to delete a webhook, use `{self.client.command_prefix}webhook delete <webhook>`.", inline=False)
             embed.add_field(name="**Viewing Webhook Information**", value=f"to view information for a webhook, use `{self.client.command_prefix}webhook info <webhook>`.", inline=False)
-            await ctx.send(embed=embed, delete_after=25)
+            await ctx.send(util.embed_to_str(embed), delete_after=25)
         match arg:
             case "post":
                 if not webhook or not content:
@@ -52,7 +52,7 @@ class Webhook(commands.Cog):
                                 embed.add_field(name="**Channel ID**", value=f"{r['channel_id']}")
                                 embed.add_field(name="**Guild ID**", value=f"{r['guild_id']}")
                                 embed.add_field(name="**Token**", value=f"{r['token']}")
-                                await ctx.send(embed=embed, delete_after=20)
+                                await ctx.send(util.embed_to_str(embed), delete_after=20)
                             else:
                                 await ctx.send(f"webhook {webhook} likely does not exist, response code {response.status}", delete_after=10)
                     

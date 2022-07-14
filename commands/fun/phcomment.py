@@ -18,5 +18,5 @@ class PHComment(commands.Cog):
                     color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
                 embed.set_image(url=r["message"])
                 
-                await ctx.send(embed=embed, delete_after=20)
+                await ctx.send(util.embed_to_str(embed), delete_after=20)
     

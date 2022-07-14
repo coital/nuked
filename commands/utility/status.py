@@ -22,7 +22,7 @@ class Status(commands.Cog):
             embed.add_field(name="**listening**", value=f"have a `listening` status.\nUsage: `{self.client.command_prefix}status listening <text>`", inline=False)
             embed.add_field(name="**watching**", value=f"have a `watching` status.\nUsage: `{self.client.command_prefix}status watching <text>`", inline=False)
             embed.add_field(name="**streaming**", value=f"have a `streaming` status.\nUsage: `{self.client.command_prefix}status streaming <text>`", inline=False)
-            await ctx.send(embed=embed, delete_after=20)
+            await ctx.send(util.embed_to_str(embed), delete_after=20)
         elif type.lower() == "playing":
             await self.client.change_presence(activity=discord.Game(name=message), status=discord.Status.dnd)
             await ctx.send(f"set status to `playing {message}`", delete_after=10)

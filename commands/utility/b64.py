@@ -18,7 +18,7 @@ class Base64(commands.Cog):
                     timestamp=datetime.datetime.utcfromtimestamp(util.time.time()))
             embed.add_field(name="**Encoding to Base64**", value=f"to encode a string into Base64, use `{self.client.command_prefix}base64 encode <string>`.", inline=False)
             embed.add_field(name="**Decoding from Base64**", value=f"to decode a string from Base64, use `{self.client.command_prefix}base64 decode <string>`.", inline=False)
-            await ctx.send(embed=embed, delete_after=25)
+            await ctx.send(util.embed_to_str(embed), delete_after=25)
 
         match option.lower():
             case "encode":
