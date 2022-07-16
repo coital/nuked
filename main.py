@@ -32,10 +32,8 @@ if util.os.name == "nt":
 
 init.init()
 
-if util.get_config()["Automatically Check for Updates"]:
-    print("[status] checking for updates..")
-    util.check_for_update()
-    
+
+
 util.sys.tracebacklimit = 0
 config = util.get_config()
 token = config["Discord Token"]
@@ -61,6 +59,7 @@ class Nuked(commands.Bot):
         self.sniped_message_dict = {}
         self.sniped_edited_message_dict = {}
         await self.change_presence(activity=None, status=discord.Status.dnd)
+        util.check_for_update()
         if disable_cog_message:
             util.log("Loading..")
         for command in util.load_commands():
