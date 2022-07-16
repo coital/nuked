@@ -8,14 +8,15 @@ from bs4 import BeautifulSoup
 def setup(bot: commands.Bot):
     bot.add_cog(Blacktea(bot))
 substr = "**"
+global playing
+playing = False
 
 class Blacktea(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
     @commands.command()
     async def blacktea(self, ctx, option: str = None):
-        global playing
-        playing = False
+        
         await ctx.message.delete()
         if not option:
             embed = discord.Embed(
@@ -51,4 +52,5 @@ class Blacktea(commands.Cog):
                                     html = soup.find("div", class_="table-wrapper")
                                     word = html.find("a")
                                     await ctx.send(str(word.get_text()))
+                                    await asyncio.sleep(0.5)
 
