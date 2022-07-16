@@ -45,6 +45,7 @@ class Help(commands.Cog):
             embed.add_field(name=f"**{self.client.command_prefix}tweet <username> <message>**", value="Send a fake image of <username> tweeting <message>.")
             embed.add_field(name=f"**{self.client.command_prefix}ud <query>**", value="Query Urban Dictionary for <query>, and send the most relevant result.")
             embed.add_field(name=f"**{self.client.command_prefix}wiki <query>**", value="Query Wikipedia for <query>, and send the most relevant result.")
+            embed.add_field(name=f"**{self.client.command_prefix}meme**", value="Send a randomly generated meme.")
             embed.add_field(name=f"**{self.client.command_prefix}wyr**", value="Send a random Would You Rather question.")
             await ctx.send(util.embed_to_str(embed), delete_after=25)
         elif option.lower() == "nsfw":

@@ -8,31 +8,35 @@ if sys.version_info < (3, 10):
 print("[status] loading package manager..")
 from modules import package, util, init
 print(f"[status] done loading package manager")
-
+if util.get_config()["Automatically Check for Updates"]:
+    print("[status] checking for updates..")
+    util.check_for_update()
 try:
     import time, math
     start = time.time()
     print("[status] loading main.py imports")
-    import discord, json, ctypes, cursor, signal, sys
+    import discord, cursor, signal, sys
     from discord.ext import commands
     end = time.time()
     print(f"[status] done loading main.py imports ({math.ceil(end - start)} s)")
 except ImportError as e:
     if "discord" in str(e):
         package.install_module(module="discord.py-self")
+    elif "git" in str(e):
+        print("[error] you don't have the git cli installed. install at https://git-scm.com/downloads.")
     else:
         package.install_module(module=e.name)
         print(f"Installed missing module {e.name}, restarting..")
     time.sleep(1.5)
     package.restart()
 
+if util.os.name == "nt":
+    package.install_module(module="win10toast")
 
 init.init()
 
 util.sys.tracebacklimit = 0
-with open("./config.json") as f:
-    config = json.load(f)
-
+config = util.get_config()
 token = config["Discord Token"]
 light_mode = config["Enable Light Mode"]
 rich_presence = config["Discord Rich Presence"]
@@ -40,12 +44,6 @@ disable_cog_message = config["Disable Cog Load Message"]
 
 if rich_presence:
     util.setup_rich_presence()
-
-if util.os.name == "nt":
-    package.install_module(module="win10toast")
-
-util.check_for_update()
-
 try:
     cursor.hide()
 except Exception as e:
@@ -81,13 +79,12 @@ class Nuked(commands.Bot):
         util.presplash()
         util.splash()
         if light_mode:
-            util.set_title("Nuked - Enabling Light Mode")
             for command in util.enable_light_mode():
                 self.unload_extension(command)
             util.log("Light mode is enabled - commands will not work.")
+        util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
         util.log(f"[bold]{self.user.name}#{self.user.discriminator}[/bold] was logged in.")
         util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
-        util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
 
 
 Nuked(command_prefix=".", help_command=None, self_bot=True).run(token)
