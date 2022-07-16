@@ -8,9 +8,6 @@ if sys.version_info < (3, 10):
 print("[status] loading package manager..")
 from modules import package, util, init
 print(f"[status] done loading package manager")
-if util.get_config()["Automatically Check for Updates"]:
-    print("[status] checking for updates..")
-    util.check_for_update()
 try:
     import time, math
     start = time.time()
@@ -35,6 +32,10 @@ if util.os.name == "nt":
 
 init.init()
 
+if util.get_config()["Automatically Check for Updates"]:
+    print("[status] checking for updates..")
+    util.check_for_update()
+    
 util.sys.tracebacklimit = 0
 config = util.get_config()
 token = config["Discord Token"]

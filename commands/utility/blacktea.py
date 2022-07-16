@@ -1,4 +1,4 @@
-import discord, datetime, base64, requests, asyncio
+import discord, datetime, random, requests, asyncio
 from discord import Embed
 from discord.embeds import EmbedProxy
 from discord.ext import commands
@@ -26,12 +26,12 @@ class Blacktea(commands.Cog):
             embed.add_field(name="**Enabling**", value=f"to enable automated blacktea `{self.client.command_prefix}blacktea on`.", inline=False)
             embed.add_field(name="**Disabling**", value=f"to disable automated blacktea `{self.client.command_prefix}blacktea off`.", inline=False)
             await ctx.send(util.embed_to_str(embed), delete_after=25)
-
-        match option.lower():
-            case "on":
-                playing = True
-            case "off":
-                playing = False
+        else:
+            match option.lower():
+                case "on":
+                    playing = True
+                case "off":
+                    playing = False
 
         while playing:
             messages = await ctx.channel.history(limit=1).flatten()
@@ -50,8 +50,8 @@ class Blacktea(commands.Cog):
                                     r = requests.get(f"https://wordfind.com/contains/{letters}/")
                                     if r.status_code == 200:
                                         soup = BeautifulSoup(r.content, 'html.parser')
-                                        html = soup.find("div", class_="lBlock")
-                                        word = html.find("a")
-                                        await ctx.send(str(word.get_text()))
-                                    await asyncio.sleep(0.5)
+                                        html = soup.find("section")
+                                        words = html.find_all("li", class_="dl")
+                                        await ctx.send(str(random.choice(words).get_text())[:-2])
+                                    await asyncio.sleep(1)
 
