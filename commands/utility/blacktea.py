@@ -48,9 +48,10 @@ class Blacktea(commands.Cog):
                                 letters = letters.replace("**.", "")
                                 if len(letters) == 3:
                                     r = requests.get(f"https://wordfind.com/contains/{letters}/")
-                                    soup = BeautifulSoup(r.content, 'html.parser')
-                                    html = soup.find("div", class_="table-wrapper")
-                                    word = html.find("a")
-                                    await ctx.send(str(word.get_text()))
+                                    if r.status == 200:
+                                        soup = BeautifulSoup(r.content, 'html.parser')
+                                        html = soup.find("div", class_="table-wrapper")
+                                        word = html.find("a")
+                                        await ctx.send(str(word.get_text()))
                                     await asyncio.sleep(0.5)
 

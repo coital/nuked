@@ -181,6 +181,7 @@ def presplash():
     clear()
 
 def splash():
+    clear()
     colorama.init(strip=True, convert=True, autoreset=True)
     with open("./config.json") as f:
         config = json.load(f)
