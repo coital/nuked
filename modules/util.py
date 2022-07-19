@@ -206,8 +206,8 @@ def splash():
 def error(content: str):
     console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]")
 
-def log(content: str):
-    console.print(f"\n[reset][cyan][bright][{get_time()}][/bright][/cyan] {content}[/reset]")
+def log(content: str, color="cyan"):
+    console.print(f"\n[reset][{color}][bright][{get_time()}][/bright][/{color}] {content}[/reset]")
 
 def setup_rich_presence() -> bool:
     global rpc

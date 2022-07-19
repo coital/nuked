@@ -16,8 +16,11 @@ def init():
     if not os.path.exists("./config.json"):
         clear()
         log("Welcome to the initial setup process for the Nuked selfbot.")
-        log("If you're updating, you can move your current config.json here and use that configuration.\n")
-        choice = console.input("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]\nEnter '2' if you would like to log in using your Discord token.\nEnter '3' if you would like Nuked to automatically detect Discord accounts [bold](Experimental)[/bold].\n>")
+        log("If you're updating, you can move your current config.json here and use that configuration.")
+        log("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]", color="green")
+        log("Enter '2' if you would like to log in using your Discord token.", color="green")
+        log("Enter '3' if you would like Nuked to automatically detect Discord accounts [bold](Experimental)[/bold].", color="green")
+        choice = console.input(f"\n>")
         match choice:
             case '1':
                 with open("./config.json", "w") as fp:
@@ -135,7 +138,7 @@ def init():
                     package.restart()
             case _:
                 package.restart()
-        # clear()
+        clear()
     else:
         if os.path.getsize(f"{os.getcwd()}/config.json") == 0:
             os.remove(f"{os.getcwd()}/config.json")
