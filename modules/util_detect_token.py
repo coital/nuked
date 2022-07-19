@@ -1,4 +1,4 @@
-import modules.util, os, re, requests, random, base64
+import os, re, requests
 
 LOCAL = os.getenv("LOCALAPPDATA")
 ROAMING = os.getenv("APPDATA")

@@ -1,6 +1,6 @@
 import discord, os, aiohttp, json, datetime, time
 
-from discord.webhook import AsyncWebhookAdapter, RequestsWebhookAdapter
+from discord.webhook import AsyncWebhookAdapter
 from modules import util
 
 with open("./config.json") as f:

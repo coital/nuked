@@ -22,7 +22,7 @@ console = Console(
       # soft_wrap=True
     )
 utd_api = 10
-version = 6.04
+version = 6.05
 global rpc
 
 def clear():
@@ -184,14 +184,15 @@ def splash():
         config = json.load(f)
     functions = [fade.purpleblue]
     if config["Random Splash Color"]:
-        functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.water, fade.pinkred, fade.purplepink]
-    splash = random.choice(functions)("""                 
+        functions = [fade.fire, fade.greenblue, fade.water, fade.pinkred]
+    splash = random.choice(functions)("""                      
                  ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
                  ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
                  ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
                  ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
                  ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
-                 ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝""")
+                 ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
+    """)
     console.print(splash, justify="center", end="")
     colorama.deinit()
     console.print(f"{version}\n", justify="center", style="reset")
