@@ -67,6 +67,7 @@ def init():
                     if setup_password == "":
                         setup_password = "None"
                     setup_data = {
+                        "Auto Update": True,
                         "Discord Token": setup_token,
                         "Discord Password": setup_password,
                         "Discord Rich Presence": True,
@@ -108,6 +109,7 @@ def init():
                         clear()
                         try:
                             setup_data = {
+                                "Auto Update": True,
                                 "Discord Token": accounts[slice],
                                 "Discord Password": None,
                                 "Discord Rich Presence": True,
