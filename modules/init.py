@@ -131,10 +131,10 @@ def init():
                             time.sleep(2)
                             check_token(setup_data["Discord Token"])
                         except IndexError:
-                            print("account was out of the index. restarting..")
+                            log("Token was out of the list index. Restarting.", color="red")
                             package.restart()
                 else:
-                    print("no tokens were found to log into. restarting..")
+                    log("No tokens were found to log into. Restarting.", color="red")
                     package.restart()
             case _:
                 package.restart()
