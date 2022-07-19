@@ -1,5 +1,5 @@
 
-import os, json, time, sys
+import os, json, time
 from modules import package
 
 try:

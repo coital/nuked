@@ -1,12 +1,10 @@
 from modules import package
 from typing import Dict, List
-import os, datetime, ast, sys, subprocess, json, time, ctypes, asyncio, re, shutil
+import os, datetime, ast, sys, json, time, ctypes
 
 try:
-    import colorama
-    from git import Repo
-    import fade, random, discord, requests, pystyle
-    import cursor
+    import colorama, fade, random, discord, requests, cursor
+    from git import Repo    
     from rich.console import Console
     from pypresence import Presence
     from modules import init
@@ -186,15 +184,14 @@ def splash():
         config = json.load(f)
     functions = [fade.purpleblue]
     if config["Random Splash Color"]:
-        functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.random, fade.water]
-    splash = random.choice(functions)("""                        
-                ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
-                ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
-                ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
-                ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
-                ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
-                ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
-    """)
+        functions = [fade.brazil, fade.fire, fade.greenblue, fade.purpleblue, fade.water, fade.pinkred, fade.purplepink]
+    splash = random.choice(functions)("""                 
+                 ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
+                 ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
+                 ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
+                 ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
+                 ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
+                 ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝""")
     console.print(splash, justify="center", end="")
     colorama.deinit()
     console.print(f"{version}\n", justify="center", style="reset")
@@ -240,5 +237,3 @@ def embed_to_str(embed: discord.Embed) -> str:
 
     str += f"""{embed.footer.text if embed.footer else ""}\n{embed.image.url if embed.image else ""}\n{embed.thumbnail.url if embed.thumbnail else ""}\n"""
     return str
-        
-    

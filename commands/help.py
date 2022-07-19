@@ -1,4 +1,4 @@
-import discord, datetime, time, requests
+import discord, datetime, time
 from discord.ext import commands
 from modules import util
 
