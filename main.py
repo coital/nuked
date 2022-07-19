@@ -1,12 +1,11 @@
 print("[status] initializing..")
-from faulthandler import disable
+from modules import package, util, init
 import sys
 if sys.version_info < (3, 10):
     print("This selfbot requires Python 3.10.")
     input()
     exit()
 print("[status] loading package manager..")
-from modules import package, util, init
 print(f"[status] done loading package manager")
 try:
     import time, math
@@ -24,7 +23,6 @@ except ImportError as e:
     else:
         package.install_module(module=e.name)
         print(f"Installed missing module {e.name}, restarting..")
-    time.sleep(1.5)
     package.restart()
 
 if util.os.name == "nt":
@@ -66,7 +64,7 @@ class Nuked(commands.Bot):
             try:
                 self.load_extension(command)
                 if not disable_cog_message:
-                    util.log(f"Loaded cog: [bold]{command}[/bold]\n")
+                    util.log(f"Loaded cog: [bold]{command}[/bold].\n")
             except commands.errors.ExtensionFailed as e:
                 if isinstance(e.original, ModuleNotFoundError):
                     util.error(f"Missing module: [bold]{e.original.name}[/bold]. Attempting to install it.")
@@ -81,7 +79,7 @@ class Nuked(commands.Bot):
         if light_mode:
             for command in util.enable_light_mode():
                 self.unload_extension(command)
-            util.log("Light mode is enabled - commands will not work.")
+            util.log("Light mode is enabled - commands [bold]will not[/bold] work.")
         util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
         util.log(f"[bold]{self.user.name}#{self.user.discriminator}[/bold] was logged in.")
         util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")

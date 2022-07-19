@@ -10,7 +10,6 @@ except ImportError as e:
     package.restart()
 
 def init():
-    
     from modules.util import clear, log, console, check_token, get_config, get_token, error
     import modules.util_detect_token as utd
     clear()
@@ -89,39 +88,51 @@ def init():
                     check_token(setup_data["Discord Token"])
             case '3':
                 accounts = utd.detect_tokens()
-                print(f'\nItems found: {len(accounts)}')
-                print('Accounts:')
                 for item in accounts:
-                    print(f'{utd.get_username(item)} -- {item[:24]}..')
-                num = console.input(f'\nOut of the {len(accounts)} tokens, which one would you like to log into?\n\n>')
-                slice = int(num)
-                if slice == 1:
-                    slice = 0
-                with open("./config.json", "w") as fp:
-                    clear()
-                    setup_data = {
-                        "Discord Token": accounts[slice],
-                        "Discord Password": None,
-                        "Discord Rich Presence": True,
-                        "Default Prefix": ".",
-                        "Enable Mention Logger": True,
-                        "Enable Mention Blocker": False,
-                        "Enable Light Mode": False,
-                        "Disable Eval Command": False,
-                        "Enable Slotbot Sniper": True,
-                        "Enable Nitro Sniper": True,
-                        "Automatically Check for Updates": True,
-                        "Random Splash Color": False,
-                        "Theme": "Default",
-                        "Disable Cog Load Message": True,
-                        "Logging": {
-                            "Nitro Logger": ""
-                        }
-                    }
-                    json.dump(setup_data, fp, indent=4)
-                    log("[bold]Additional settings can be tweaked in config.json![/bold]")
-                    time.sleep(2)
-                    check_token(setup_data["Discord Token"])
+                    try:
+                        utd.get_username(item)
+                    except KeyError:
+                        accounts.remove(item)
+                if len(accounts) > 0:
+                    print(f'\nItems found: {len(accounts)}')
+                    print('Accounts:')
+                    for item in accounts:
+                        print(f'{utd.get_username(item)} -- {item[:24]}..')
+                    num = console.input(f'\nOut of the {len(accounts)} tokens, which one would you like to log into?\n\n>')
+                    slice = int(num)
+                    slice = slice - 1
+                    with open("./config.json", "w") as fp:
+                        clear()
+                        try:
+                            setup_data = {
+                                "Discord Token": accounts[slice],
+                                "Discord Password": None,
+                                "Discord Rich Presence": True,
+                                "Default Prefix": ".",
+                                "Enable Mention Logger": True,
+                                "Enable Mention Blocker": False,
+                                "Enable Light Mode": False,
+                                "Disable Eval Command": False,
+                                "Enable Slotbot Sniper": True,
+                                "Enable Nitro Sniper": True,
+                                "Automatically Check for Updates": True,
+                                "Random Splash Color": False,
+                                "Theme": "Default",
+                                "Disable Cog Load Message": True,
+                                "Logging": {
+                                    "Nitro Logger": ""
+                                }
+                            }
+                            json.dump(setup_data, fp, indent=4)
+                            log("[bold]Additional settings can be tweaked in config.json![/bold]")
+                            time.sleep(2)
+                            check_token(setup_data["Discord Token"])
+                        except IndexError:
+                            print("account was out of the index. restarting..")
+                            package.restart()
+                else:
+                    print("no tokens were found to log into. restarting..")
+                    package.restart()
             case _:
                 package.restart()
         # clear()

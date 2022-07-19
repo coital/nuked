@@ -1,4 +1,4 @@
-import os, subprocess, sys
+import os, subprocess, sys, time
 from typing import List
 
 
@@ -30,4 +30,5 @@ def install_module(module: str=None, modules: List[str]=None):
     return
 
 def restart():
+    time.sleep(1)
     os.execv(sys.executable, ['python'] + [sys.argv[0]])

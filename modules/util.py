@@ -7,8 +7,6 @@ try:
     from git import Repo
     import fade, random, discord, requests, pystyle
     import cursor
-    from colorama import Fore
-    import rich
     from rich.console import Console
     from pypresence import Presence
     from modules import init
@@ -30,6 +28,7 @@ version = 6.04
 global rpc
 
 def clear():
+    sys.stdout.flush()
     os.system("clear" if os.name != "nt" else "cls")
 
 def check_for_update():
