@@ -56,7 +56,8 @@ class Blacktea(commands.Cog):
                                 letters = embed1.description[val+2:]
                                 letters = letters.replace("**.", "")
                                 await asyncio.sleep(0.5)
-                                await ctx.send(get_word(letters))
+                                async with ctx.typing():
+                                    await ctx.send(get_word(letters))
                         elif "Type a word" in message.content:
                                 val = -1
                                 for i in range(0, 3):
