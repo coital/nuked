@@ -7,4 +7,4 @@
 
 # Screenshots
 ![](https://i.imgur.com/7QMJcmJ.png)  
-![](https://i.imgur.com/V1oh1IW.png)
+![](https://i.imgur.com/V3hI08E.png)
