@@ -68,6 +68,7 @@ class Help(commands.Cog):
 					embed.add_field(name=f"**{self.client.command_prefix}latency**", value="Send client latency.")
 					embed.add_field(name=f"**{self.client.command_prefix}light <option>**", value="Enable or disable Light Mode.")
 					embed.add_field(name=f"**{self.client.command_prefix}nitro <option> [code]**", value="Generate or check a Discord Nitro code.")
+					embed.add_field(name=f"**{self.client.command_prefix}blacktea <option>**", value="Automatically play blacktea for you.")
 					embed.set_footer(text=f"To view more utility commands, use {self.client.command_prefix}help {option.lower()} 2")
 					await ctx.send(util.embed_to_str(embed), delete_after=25)
 				case "util 2":
