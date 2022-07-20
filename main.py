@@ -28,9 +28,6 @@ if util.os.name == "nt":
     package.install_module(module="win10toast")
 
 init.init()
-
-
-
 util.sys.tracebacklimit = 0
 config = util.get_config()
 token = config["Discord Token"]
@@ -43,14 +40,14 @@ if rich_presence:
 try:
     cursor.hide()
 except Exception as e:
-    util.error(f"Exception while setting up cursor: [bold]{str(e)}[/bold]")
+    util.log(f"Exception while setting up cursor: [bold]{str(e)}[/bold]", error=True)
 
 class Nuked(commands.Bot):
     async def on_connect(self):
         try:
             signal.signal(signal.SIGINT, util.signal_handler)
         except Exception as e:
-            util.error(f"Error while setting up signal handler: {str(e)}")
+            util.log(f"Error while setting up signal handler: {str(e)}", error=True)
         self.msgsniper = True
         self.snipe_history_dict = {}
         self.sniped_message_dict = {}
@@ -65,11 +62,11 @@ class Nuked(commands.Bot):
                     util.log(f"Loaded cog: [bold]{command}[/bold].\n")
             except commands.errors.ExtensionFailed as e:
                 if isinstance(e.original, ModuleNotFoundError):
-                    util.error(f"Missing module: [bold]{e.original.name}[/bold]. Attempting to install it.")
+                    util.log(f"Missing module: [bold]{e.original.name}[/bold]. Attempting to install it.", error=True)
                     package.install_module(module=e.original.name)
                     package.restart()
             except Exception as e:
-                util.error(f"There was an exception in on_connect: [bold]{e}[/bold]")
+                util.log(f"There was an exception in on_connect: [bold]{e}[/bold]", error=True)
         time.sleep(1.5)
         util.clear()
         util.presplash()

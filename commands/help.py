@@ -50,7 +50,7 @@ class Help(commands.Cog):
 					embed = discord.Embed(title="**NSFW Commands**", description="<> - required\n[] - optional", color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
 					embed.add_field(name=f"**{self.client.command_prefix}boobs**", value="Send a random embedded image of anime boobs.")
 					embed.add_field(name=f"**{self.client.command_prefix}hentai <category>**", value="Send an embedded hentai gif or image, based on <category>. Use the command to view the categories.")
-					await ctx.send(embed=embed, delete_after=25)
+					await ctx.send(util.embed_to_str(embed), delete_after=25)
 				case "malicious":
 					embed = discord.Embed(title="**Malicious Commands**", description="<> - required\n[] - optional", color=util.get_color(), timestamp=datetime.datetime.utcfromtimestamp(time.time()))
 					embed.add_field(name=f"**{self.client.command_prefix}crash**", value="Spam a multitude of emojis and characters in attempt to crash or lag a user's Discord client.")

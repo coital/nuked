@@ -86,9 +86,9 @@ def init():
             case '3':
                 accounts = utd.detect_tokens()
                 for item in accounts:
-                    try:
-                        utd.get_username(item)
-                    except KeyError:
+                    if not utd.exists(item):
+                        accounts.remove(item)
+                    while accounts.count(item) > 1:
                         accounts.remove(item)
                 if len(accounts) > 0:
                     print(f'\nItems found: {len(accounts)}')
@@ -127,6 +127,7 @@ def init():
                             check_token(setup_data["Discord Token"])
                         except IndexError:
                             log("Token was out of the list index. Restarting.", color="red")
+                            os.remove(f"{os.getcwd()}/config.json")
                             package.restart()
                 else:
                     log("No tokens were found to log into. Restarting.", color="red")

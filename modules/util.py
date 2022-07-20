@@ -225,7 +225,7 @@ def embed_to_str(embed: discord.Embed) -> str:
     str = f"""{embed.title if embed.title else ""}\n{embed.description if embed.description else ""}\n"""
     embeds = embed.fields
     for em in embeds:
-        str +=  f"""{em.name} : {em.value}\n\n"""
+        str +=  f"""\n{em.name} : {em.value}\n"""
 
     str += f"""{embed.footer.text if embed.footer else ""}\n{embed.image.url if embed.image else ""}\n{embed.thumbnail.url if embed.thumbnail else ""}\n"""
     return str

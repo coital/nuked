@@ -8,8 +8,7 @@ from bs4 import BeautifulSoup
 def setup(bot: commands.Bot):
     bot.add_cog(Blacktea(bot))
 substr = "**"
-global playing
-playing = False
+
 
 
 def get_word(letters: str) -> str:
@@ -24,13 +23,14 @@ def get_word(letters: str) -> str:
 class Blacktea(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
+        self.playing = False
     @commands.command(aliases=["bt"])
     async def blacktea(self, ctx, option: str = None):
         await ctx.message.delete()
         if not option:
             embed = discord.Embed(
                     title=f"**Automated Blacktea**", color=util.get_color(), 
-                    description=f"Automatically play blacktea when enabled", 
+                    description=f"Automatically play blacktea when enabled\nCurrent status: {'`enabled`' if self.playing else '`disabled`'}.", 
                     timestamp=datetime.datetime.utcfromtimestamp(util.time.time()))
             embed.add_field(name="**Enabling**", value=f"to enable automated blacktea `{self.client.command_prefix}blacktea on`.", inline=False)
             embed.add_field(name="**Disabling**", value=f"to disable automated blacktea `{self.client.command_prefix}blacktea off`.", inline=False)
@@ -38,11 +38,11 @@ class Blacktea(commands.Cog):
         else:
             match option.lower():
                 case "on":
-                    playing = True
+                    self.playing = True
                 case "off":
-                    playing = False
+                    self.playing = False
 
-        while playing:
+        while self.playing:
             messages = await ctx.channel.history(limit=1).flatten()
             for message in messages:
                 if message.author.id in [593921296224747521, 432610292342587392]:
@@ -55,7 +55,7 @@ class Blacktea(commands.Cog):
                                     val = embed1.description.find("**", val + 1)
                                 letters = embed1.description[val+2:]
                                 letters = letters.replace("**.", "")
-                                await asyncio.sleep(0.5)
+                                await asyncio.sleep(0.8)
                                 async with ctx.typing():
                                     await ctx.send(get_word(letters))
                         elif "Type a word" in message.content:
@@ -64,8 +64,7 @@ class Blacktea(commands.Cog):
                                     val = message.content.find("**")
                                 letters = message.content[val+2:]
                                 letters = letters.replace("**", "")
-                                await asyncio.sleep(0.7)
+                                await asyncio.sleep(0.8)
                                 async with ctx.typing():
                                     await ctx.send(get_word(letters))
                         await asyncio.sleep(1)
-
