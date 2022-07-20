@@ -2,15 +2,8 @@
 import os, json, time
 from modules import package
 
-try:
-    from colorama import Fore
-except ImportError as e:
-    package.install_module(module=e.name)
-    print(f"Installed missing module {e.name}, restarting..")
-    package.restart()
-
 def init():
-    from modules.util import clear, log, console, check_token, get_config, get_token, error
+    from modules.util import clear, log, console, check_token, get_config, get_token
     import modules.util_detect_token as utd
     clear()
     if not os.path.exists("./config.json"):
@@ -54,7 +47,7 @@ def init():
                         time.sleep(2)
                         check_token(setup_data["Discord Token"])
                     else:
-                        error("The username and password combination was incorrect. Restarting..")
+                        log("The username and password combination was incorrect. Restarting..", error=True)
                         os.remove("config.json")
                         time.sleep(1)
                         package.restart()

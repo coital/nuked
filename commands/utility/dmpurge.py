@@ -17,7 +17,7 @@ class DmPurge(commands.Cog):
                     try:
                         await message.delete()
                     except Exception as e:
-                        util.error(f"Could not delete message: [bold]{str(e)}[/bold]")
+                        util.log(f"Could not delete message: [bold]{str(e)}[/bold]", error=True)
         else:
             await ctx.send("channel is not a group or DM.", delete_after=10)
         

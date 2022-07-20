@@ -12,4 +12,4 @@ class CommandError(commands.Cog):
         _error = getattr(error, 'original', error)
         if isinstance(_error, commands.CommandNotFound):
             return
-        util.error(f'{ctx.command} - {error_str}')
+        util.log(f'{ctx.command} - {error_str}', error=True)

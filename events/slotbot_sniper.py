@@ -24,5 +24,5 @@ class SlotbotSniper(commands.Cog):
                         end = time.time()
                         util.log(f"Sniped slotbot in guild [bold]{message.guild.name}[/bold], ID: [bold]{message.guild.id}[/bold]. ({math.floor((end - start) * 1000)} ms)")
                     except:
-                        util.error(f"Failed to snipe slotbot in guild [bold]{message.guild.name}[/bold], ID: [bold]{message.guild.id}[/bold].")
+                        util.log(f"Failed to snipe slotbot in guild [bold]{message.guild.name}[/bold], ID: [bold]{message.guild.id}[/bold].", error=True)
                 

@@ -1,9 +1,8 @@
 from modules import package
-from typing import Dict, List
 import os, datetime, ast, sys, json, time, ctypes
 
 try:
-    import colorama, fade, random, discord, requests, cursor
+    import fade, random, discord, requests, cursor
     from git import Repo    
     from rich.console import Console
     from pypresence import Presence
@@ -19,9 +18,8 @@ except ImportError as e:
 console = Console(
         color_system="auto", 
         legacy_windows=True,
-      # soft_wrap=True
     )
-utd_api = 10
+utd_api = f"https://discord.com/api/v10"
 version = 6.05
 global rpc
 
@@ -30,10 +28,13 @@ def clear():
     os.system("clear" if os.name != "nt" else "cls")
 
 def check_for_update():
-    with open("./config.json") as f:
-        config = json.load(f)
+    try:
+        with open("./config.json") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        return
     if config["Automatically Check for Updates"]:
-        r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version")
+        r = requests.get(url="https://raw.githubusercontent.com/coital/nuked/main/version?v=1")
         ver = float(r.text)
         if ver > version:
             if config["Auto Update"]:
@@ -44,10 +45,7 @@ def check_for_update():
                 log(f"[blink][link=https://github.com/coital/nuked]Update for Nuked is available[/link]![/blink] New version: v{ver}, current version: v{version}")
                 log("You can update by replacing the core files with the ones at https://github.com/coital/nuked")
                 input()
-        
-
-def get_utd_api_link() -> str:
-    return f"https://discord.com/api/v{utd_api}"
+         
 
 def auto_update():
     r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/version")
@@ -74,6 +72,7 @@ def get_config():
         return json.load(f)
 
 def get_color():
+    """
     with open("./config.json") as f:
         config = json.load(f)
     match str(config["Theme"]).lower():
@@ -85,6 +84,10 @@ def get_color():
             return discord.Color(0xADD8E6)
         case _:
             return discord.Color(0xFAFAFA)
+    // rip embeds :(
+    """
+    return 0xfafafa
+    
         
 def toast_message(message: str):
     if os.name == "nt":
@@ -96,10 +99,8 @@ def toast_message(message: str):
                     duration=5,
                     threaded=True)
 
-
-
 def get_token(email: str, password: str):
-    r = requests.post(f"{get_utd_api_link()}/auth/login", json={"login":email,"password":password,"undelete":False,"captcha_key":None,"login_source":None,"gift_code_sku_id":None}, headers={"content-type": "application/json"})
+    r = requests.post(f"{utd_api}/auth/login", json={"login":email,"password":password,"undelete":False,"captcha_key":None,"login_source":None,"gift_code_sku_id":None}, headers={"content-type": "application/json"})
     try:
         token = r.json()["token"]
     except:
@@ -119,13 +120,13 @@ def signal_handler(signal, frame):
 def check_token(token: str):
     headers = {"Content-Type": "application/json", "authorization": token}
     r = requests.get(
-        f"{get_utd_api_link()}/users/@me/library", headers=headers)
+        f"{utd_api}/users/@me/library", headers=headers)
     if r.status_code == 200:
         return
     else:
         os.remove(f'{os.getcwd()}/config.json')
         clear()
-        error('Invalid token.')
+        log('Invalid token.', error=True)
         time.sleep(1)
         init.init()
 
@@ -141,7 +142,7 @@ def insert_returns(body):
     if isinstance(body[-1], ast.With):
         insert_returns(body[-1].body)
 
-def load_commands() -> Dict:
+def load_commands() -> dict:
     commands_dict = []
     
     for file in os.listdir("./commands/fun/"):
@@ -164,7 +165,7 @@ def load_commands() -> Dict:
             commands_dict.append(f"events.{file[:-3]}")
     return commands_dict
 
-def enable_light_mode() -> Dict:
+def enable_light_mode() -> dict:
     light_mode_commands = []
     for command in load_commands():
         if "light" not in command and "event" not in command:
@@ -179,7 +180,6 @@ def presplash():
 
 def splash():
     clear()
-    colorama.init(strip=True, convert=True, autoreset=True)
     with open("./config.json") as f:
         config = json.load(f)
     functions = [fade.purpleblue]
@@ -194,18 +194,13 @@ def splash():
                  ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
     """)
     console.print(splash, justify="center", end="")
-    colorama.deinit()
     console.print(f"{version}\n", justify="center", style="reset")
     r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd")
     if r.status_code in (200, 204):
         console.print(f"MOTD: [bold]{r.text}[/]\n", justify="center")
-    
 
-def error(content: str):
-    console.print(f"\n[reset][red][bright][{get_time()}][/bright][/red] {content}[/reset]")
-
-def log(content: str, color="cyan"):
-    console.print(f"\n[reset][{color}][bright][{get_time()}][/bright][/{color}] {content}[/reset]")
+def log(content: str, color="cyan", error=False):
+    console.print(f"\n[reset][{'red' if error else color}][bright][{get_time()}][/bright][/{'red' if error else color}] {content}[/reset]")
 
 def setup_rich_presence() -> bool:
     global rpc
@@ -217,12 +212,9 @@ def setup_rich_presence() -> bool:
                 join="Join")
         return True
     except Exception as e:
-        error(f"RPC Failed to initialize: [bold]{e}[/bold].")
+        log(f"RPC Failed to initialize: [bold]{e}[/bold].", error=True)
         time.sleep(2.5)
     return False
-
-def enable_rich_presence() -> bool:
-    return setup_rich_presence()
 
 def disable_rich_presence() -> bool:
     global rpc
@@ -230,7 +222,6 @@ def disable_rich_presence() -> bool:
     return True
 
 def embed_to_str(embed: discord.Embed) -> str:
-    from discord.embeds import EmbedProxy
     str = f"""{embed.title if embed.title else ""}\n{embed.description if embed.description else ""}\n"""
     embeds = embed.fields
     for em in embeds:

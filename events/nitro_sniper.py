@@ -27,7 +27,7 @@ class NitroSniper(commands.Cog):
                     print(Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}A fake nitro code sent by user {message.author} in {message.guild.name if message.guild else 'DMs'} was sniped: {Fore.RED}{code}{Fore.RESET}. ({math.floor((end - start) * 1000)} ms)")
                     return
                 async with aiohttp.ClientSession(headers={"authorization": token, "user-agent": "Mozilla/5.0"}) as session:
-                    async with session.post(url=f"{util.get_utd_api_link()}/entitlements/gift-codes/{code}/redeem", json={"channel_id": message.channel.id}) as response:
+                    async with session.post(url=f"{util.utd_api}/entitlements/gift-codes/{code}/redeem", json={"channel_id": message.channel.id}) as response:
                         end = time.time()
                         text = await response.text()
                         if "This gift has been redeemed already." in text:

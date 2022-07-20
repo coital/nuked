@@ -18,7 +18,7 @@ class DMFriends(commands.Cog):
                 await user.send(f"{message}")
                 await asyncio.sleep(0.5)
             except:
-                util.error(f"DMFriends failed to DM {user}, sleeping for 0.5")
+                util.log(f"DMFriends failed to DM {user}, sleeping for 0.5", error=True)
                 await asyncio.sleep(0.5)
         
                 

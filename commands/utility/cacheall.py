@@ -25,7 +25,7 @@ class CacheAll(commands.Cog):
                         util.log(f"Cached content: {message.content}")
                         f.write(f"\n{message.created_at} - User \"{message.author}\": {message.content}\n")
                 except Exception as e:
-                    util.error(f"Exception thrown while caching, message: {e}")
+                    util.log(f"Exception thrown while caching, message: {e}", error=True)
                     continue
         
     

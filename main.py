@@ -5,6 +5,7 @@ if sys.version_info < (3, 10):
     print("This selfbot requires Python 3.10.")
     input()
     exit()
+util.check_for_update()
 print("[status] loading package manager..")
 print(f"[status] done loading package manager")
 try:
@@ -18,8 +19,6 @@ try:
 except ImportError as e:
     if "discord" in str(e):
         package.install_module(module="discord.py-self")
-    elif "git" in str(e):
-        print("[error] you don't have the git cli installed. install at https://git-scm.com/downloads.")
     else:
         package.install_module(module=e.name)
         print(f"Installed missing module {e.name}, restarting..")
@@ -57,7 +56,6 @@ class Nuked(commands.Bot):
         self.sniped_message_dict = {}
         self.sniped_edited_message_dict = {}
         await self.change_presence(activity=None, status=discord.Status.dnd)
-        util.check_for_update()
         if disable_cog_message:
             util.log("Loading..")
         for command in util.load_commands():

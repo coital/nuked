@@ -59,7 +59,7 @@ class Token(commands.Cog):
                         'Content-Type': 'application/json'
                     }
                     async with aiohttp.ClientSession(headers=headers) as session:
-                        async with session.get(f"{util.get_utd_api_link()}/users/@me/") as response:
+                        async with session.get(f"{util.utd_api}/users/@me/") as response:
                             if response.ok:
                                 res_json = await response.json()
                                 tag = f'{res_json["username"]}#{res_json["discriminator"]}'

@@ -24,7 +24,7 @@ def get_word(letters: str) -> str:
 class Blacktea(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
-    @commands.command()
+    @commands.command(aliases=["bt"])
     async def blacktea(self, ctx, option: str = None):
         await ctx.message.delete()
         if not option:
@@ -57,13 +57,14 @@ class Blacktea(commands.Cog):
                                 letters = letters.replace("**.", "")
                                 await asyncio.sleep(0.5)
                                 await ctx.send(get_word(letters))
-                        elif message.content.find("Type a word"):
+                        elif "Type a word" in message.content:
                                 val = -1
                                 for i in range(0, 3):
                                     val = message.content.find("**")
                                 letters = message.content[val+2:]
                                 letters = letters.replace("**", "")
                                 await asyncio.sleep(0.7)
-                                await ctx.send(get_word(letters))
+                                async with ctx.typing():
+                                    await ctx.send(get_word(letters))
                         await asyncio.sleep(1)
 

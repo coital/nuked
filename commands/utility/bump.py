@@ -15,5 +15,5 @@ class Bump(commands.Cog):
                 await ctx.send("!d bump", delete_after=20)
                 await asyncio.sleep(7200)
             except Exception as e:
-                util.error(f"Couldn't bump in {ctx.channel.id}. Did the channel get nuked or deleted? Error: {e}")
+                util.log(f"Couldn't bump in {ctx.channel.id}. Did the channel get nuked or deleted? Error: {e}", error=True)
     

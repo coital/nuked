@@ -31,7 +31,7 @@ class Nitro(commands.Cog):
                 await ctx.send(util.embed_to_str(embed), delete_after=20)
             stripped_code = code.removeprefix("https://discord.gift/")
             async with aiohttp.ClientSession(headers={"authorization": token, "user-agent": "Mozilla/5.0"}) as session:
-                async with session.post(url=f"{util.get_utd_api_link()}/entitlements/gift-codes/{stripped_code}/redeem", json={"channel_id": ctx.channel.id}) as response:
+                async with session.post(url=f"{util.utd_api}/entitlements/gift-codes/{stripped_code}/redeem", json={"channel_id": ctx.channel.id}) as response:
                     if response.ok:
                         await ctx.send(f"code {stripped_code} is valid")
                     else:
