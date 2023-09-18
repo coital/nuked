@@ -24,7 +24,7 @@ if os.name == "nt":
 else:
     console = Console(color_system="auto")
 utd_api = f"https://discord.com/api/v10"
-version = 6.05
+version = 6.06
 global rpc
 
 def clear():
@@ -200,7 +200,7 @@ def splash():
     """)
     console.print(splash, justify="center", end="")
     console.print(f"{version}\n", justify="center", style="reset")
-    r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd")
+    r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd?v=1")
     if r.status_code in (200, 204):
         console.print(f"MOTD: [bold]{r.text}[/]\n", justify="center")
     deinit()
