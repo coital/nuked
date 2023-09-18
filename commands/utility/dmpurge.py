@@ -2,8 +2,8 @@ import discord, os, re
 from modules import util
 from discord.ext import commands
 
-def setup(bot: commands.Bot):
-    bot.add_cog(DmPurge(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(DmPurge(bot))
 
 class DmPurge(commands.Cog):
     def __init__(self, bot):

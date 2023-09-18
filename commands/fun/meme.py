@@ -2,8 +2,8 @@ import discord, datetime, time, requests
 from modules import util
 from discord.ext import commands
 
-def setup(bot: commands.Bot):
-        bot.add_cog(Meme(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Meme(bot))
 
 class Meme(commands.Cog):
     def __init__(self, bot):

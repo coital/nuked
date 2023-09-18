@@ -2,8 +2,8 @@ import discord, datetime, time
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Light(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Light(bot))
 
 class Light(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -24,7 +24,7 @@ class Light(commands.Cog):
                               description=f"Detaching all commands to reduce the time an event takes to respond.\nTo enable commands, you must use `{self.client.command_prefix}light off`.", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             # await ctx.send(embed=embed, delete_after=20)
             for command in util.enable_light_mode():
-                self.client.unload_extension(command)
+                await self.client.unload_extension(command)
             util.log(f"Light mode is enabled - commands will not work.")
         elif option.lower() == "off":
             if not util.get_config()["Enable Light Mode"]:
@@ -35,7 +35,7 @@ class Light(commands.Cog):
             with open("./config.json", "w+") as f:
                 util.json.dump(new_json, f, indent=4)
             for command in util.enable_light_mode():
-                self.client.load_extension(command)
+                await self.client.load_extension(command)
             embed = discord.Embed(title=f"**Disabling light mode**", color=util.get_color(),
                               description="Reattaching all commands. This may increase the time events take to respond.", timestamp=datetime.datetime.utcfromtimestamp(time.time()))
             util.log(f"Light mode was disabled - commands will now work.")

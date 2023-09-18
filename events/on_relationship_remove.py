@@ -2,8 +2,8 @@ import discord, datetime, asyncio
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(OnRelationshipRemove(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(OnRelationshipRemove(bot))
 
 class OnRelationshipRemove(commands.Cog):
     def __init__(self, bot: commands.Bot):

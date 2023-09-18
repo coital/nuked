@@ -2,8 +2,8 @@ import discord, datetime, asyncio
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(OnMessageDelete(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(OnMessageDelete(bot))
 
 class OnMessageDelete(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -29,9 +29,9 @@ class OnMessageDelete(commands.Cog):
                         discord.utils.escape_markdown(str(message.author))) + "`: " + discord.utils.escape_mentions(
                         message.content) + "\n\n**Attachments:**\n" + links
                     await message.channel.send(message_content)
-        if len(self.client.sniped_message_dict) > 500:
+        if len(self.client.sniped_message_dict) > 250:
             self.client.sniped_message_dict.clear()
-        if len(self.client.snipe_history_dict) > 500:
+        if len(self.client.snipe_history_dict) > 250:
             self.client.snipe_history_dict.clear()
         attachments = message.attachments
         if len(attachments) == 0:

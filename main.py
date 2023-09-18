@@ -1,6 +1,7 @@
 print("[status] initializing..")
 from modules import package, util, init
 import sys
+sys.tracebacklimit = 0
 if sys.version_info < (3, 10):
     print("This selfbot requires Python 3.10.")
     input()
@@ -9,26 +10,16 @@ util.check_for_update()
 print("[status] loading package manager..")
 print(f"[status] done loading package manager")
 try:
-    import time, math
-    start = time.time()
-    print("[status] loading main.py imports")
-    import discord, cursor, signal, sys
+    import time
+    import discord
+    import cursor
+    import signal
     from discord.ext import commands
-    end = time.time()
-    print(f"[status] done loading main.py imports ({math.ceil(end - start)} s)")
 except ImportError as e:
-    if "discord" in str(e):
-        package.install_module(module="discord.py-self")
-    else:
-        package.install_module(module=e.name)
-        print(f"Installed missing module {e.name}, restarting..")
+    package.install_module(module=e.name)
+    print(f"Installed missing module {e.name}, restarting..")
     package.restart()
-
-if util.os.name == "nt":
-    package.install_module(module="win10toast")
-
 init.init()
-util.sys.tracebacklimit = 0
 config = util.get_config()
 token = config["Discord Token"]
 light_mode = config["Enable Light Mode"]
@@ -41,6 +32,7 @@ try:
     cursor.hide()
 except Exception as e:
     util.log(f"Exception while setting up cursor: [bold]{str(e)}[/bold]", error=True)
+
 
 class Nuked(commands.Bot):
     async def on_connect(self):
@@ -57,7 +49,7 @@ class Nuked(commands.Bot):
             util.log("Loading..")
         for command in util.load_commands():
             try:
-                self.load_extension(command)
+                await self.load_extension(command)
                 if not disable_cog_message:
                     util.log(f"Loaded cog: [bold]{command}[/bold].\n")
             except commands.errors.ExtensionFailed as e:
@@ -73,11 +65,11 @@ class Nuked(commands.Bot):
         util.splash()
         if light_mode:
             for command in util.enable_light_mode():
-                self.unload_extension(command)
+                await self.unload_extension(command)
             util.log("Light mode is enabled - commands [bold]will not[/bold] work.")
         util.set_title(f"Nuked - {self.user.name}#{self.user.discriminator}")
         util.log(f"[bold]{self.user.name}#{self.user.discriminator}[/bold] was logged in.")
         util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
 
 
-Nuked(command_prefix=".", help_command=None, self_bot=True).run(token)
+Nuked(command_prefix=".", help_command=None, self_bot=True).run(token, log_handler=None)

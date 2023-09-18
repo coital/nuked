@@ -1,14 +1,13 @@
 import discord, json, re, time, aiohttp, math
-from colorama import Fore, Style
+from colorama import Fore, Style, init, deinit
 from discord.ext import commands
 from modules import util
 from modules import logging
-
 with open("./config.json") as f:
     config = json.load(f)
 
-def setup(bot: commands.Bot):
-    bot.add_cog(NitroSniper(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(NitroSniper(bot))
 
 nitrosniper = config["Enable Nitro Sniper"]
 token = config["Discord Token"]
@@ -17,7 +16,8 @@ class NitroSniper(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
     @commands.Cog.listener("on_message")
-    async def _(self, message: discord.Message):
+    async def nitrosnipe(self, message: discord.Message):
+        init(convert=True)
         if "discord.gift/" in message.content:
             if nitrosniper:
                 code = re.search("discord.gift/(.*)", message.content).group(1)
@@ -48,4 +48,5 @@ class NitroSniper(commands.Cog):
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}An unknown error occurred when sniping the code sent by {message.author} in {message.guild.name if message.guild else 'DMs'}: {Style.DIM}{code}{Style.RESET_ALL}. ({math.floor((end - start) * 1000)} ms)")
                             print(text)
                         await session.close()
+        deinit()
                 

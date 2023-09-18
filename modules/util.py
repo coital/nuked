@@ -1,5 +1,5 @@
 from modules import package
-import os, datetime, ast, sys, json, time, ctypes
+import os, datetime, ast, sys, json, time, ctypes, asyncio
 
 try:
     import fade, random, discord, requests, cursor
@@ -7,6 +7,7 @@ try:
     from rich.console import Console
     from pypresence import Presence
     from modules import init
+    from colorama import deinit, init as cinit
 except ImportError as e:
     if "discord" in e.name:
         package.install_module(module="discord.py-self")
@@ -15,10 +16,13 @@ except ImportError as e:
         print(f"Installed missing module {e.name}, restarting..")
     package.restart()
 
-console = Console(
-        color_system="auto", 
-        legacy_windows=True,
-    )
+if os.name == "nt":
+    console = Console(
+            color_system="auto", 
+            legacy_windows=True,
+        )
+else:
+    console = Console(color_system="auto")
 utd_api = f"https://discord.com/api/v10"
 version = 6.05
 global rpc
@@ -179,6 +183,7 @@ def presplash():
     clear()
 
 def splash():
+    cinit(convert=True)
     clear()
     with open("./config.json") as f:
         config = json.load(f)
@@ -198,7 +203,7 @@ def splash():
     r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd")
     if r.status_code in (200, 204):
         console.print(f"MOTD: [bold]{r.text}[/]\n", justify="center")
-
+    deinit()
 def log(content: str, color="cyan", error=False):
     console.print(f"\n[reset][{'red' if error else color}][bright][{get_time()}][/bright][/{'red' if error else color}] {content}[/reset]")
 

@@ -2,8 +2,8 @@ import discord, datetime, time, requests
 from modules import util
 from discord.ext import commands
 
-def setup(bot: commands.Bot):
-        bot.add_cog(Cat(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Cat(bot))
 
 class Cat(commands.Cog):
     def __init__(self, bot):

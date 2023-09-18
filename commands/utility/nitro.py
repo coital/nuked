@@ -2,8 +2,8 @@ import discord, datetime, time, random, aiohttp, json
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Nitro(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Nitro(bot))
 
 with open("./config.json") as f:
     config = json.load(f)

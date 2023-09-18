@@ -2,8 +2,8 @@ import discord, datetime, time
 from modules import util
 from discord.ext import commands
 
-def setup(bot: commands.Bot):
-        bot.add_cog(Linespam(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Linespam(bot))
 
 class Linespam(commands.Cog):
     def __init__(self, bot):

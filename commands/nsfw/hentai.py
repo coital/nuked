@@ -2,8 +2,8 @@ import aiohttp, discord, hmtai
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Hentai(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Hentai(bot))
 class Hentai(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot

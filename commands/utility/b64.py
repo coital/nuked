@@ -2,8 +2,8 @@ import discord, datetime, base64
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Base64(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Base64(bot))
 
 class Base64(commands.Cog):
     def __init__(self, bot: commands.Bot):

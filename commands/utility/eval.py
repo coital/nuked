@@ -5,8 +5,8 @@ from modules import util
 
 disable_eval = util.get_config()["Disable Eval Command"]
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Eval(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Eval(bot))
 
 class Eval(commands.Cog):
     def __init__(self, bot: commands.Bot):

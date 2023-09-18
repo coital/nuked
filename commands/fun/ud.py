@@ -3,8 +3,8 @@ from modules import util
 from discord.ext import commands
 from urbandictionary_top import udtop
 
-def setup(bot: commands.Bot):
-    bot.add_cog(UrbanDictionary(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(UrbanDictionary(bot))
 
 class UrbanDictionary(commands.Cog):
     def __init__(self, bot):

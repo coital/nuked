@@ -1,5 +1,4 @@
 import discord, json, time, aiohttp, json
-from colorama import Fore, Style
 from discord.ext import commands
 from modules import util
 
@@ -8,8 +7,8 @@ with open("./config.json") as f:
 
 mention_logger = config["Enable Mention Logger"]
 
-def setup(bot: commands.Bot):
-    bot.add_cog(MentionLogger(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(MentionLogger(bot))
 
 class MentionLogger(commands.Cog):
     def __init__(self, bot: commands.Bot):

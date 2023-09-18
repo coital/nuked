@@ -2,8 +2,8 @@ import discord, datetime
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Avatar(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Avatar(bot))
 
 class Avatar(commands.Cog):
     @commands.command(aliases=["av"])

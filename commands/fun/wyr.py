@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup as bs4
 from modules import util
 from discord.ext import commands
 
-def setup(bot: commands.Bot):
-        bot.add_cog(WYR(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(WYR(bot))
 
 class WYR(commands.Cog):
     def __init__(self, bot):

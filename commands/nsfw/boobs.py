@@ -2,8 +2,8 @@ import aiohttp, discord, hmtai, requests
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Boobs(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Boobs(bot))
 class Boobs(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot

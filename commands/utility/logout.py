@@ -2,8 +2,8 @@ import discord, datetime, base64, signal
 from discord.ext import commands
 from modules import util
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Logout(bot))
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Logout(bot))
 
 class Logout(commands.Cog):
     def __init__(self, bot: commands.Bot):
