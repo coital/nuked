@@ -69,7 +69,7 @@ class Nuked(commands.Bot):
             util.log("Light mode is enabled - commands [bold]will not[/bold] work.")
         util.set_title(f"Nuked {util.version} - {self.user.name}")
         util.log(f"[bold]{self.user.name}[/bold] was logged in.", color="yellow")
-        util.toast_message(f"{self.user.name}#{self.user.discriminator} was logged in.")
+        util.toast_message(f"{self.user.name} was logged in.")
 
 
 Nuked(command_prefix=".", help_command=None, self_bot=True).run(token, log_handler=None)

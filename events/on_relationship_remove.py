@@ -10,5 +10,5 @@ class OnRelationshipRemove(commands.Cog):
         self.client = bot
     @commands.Cog.listener()
     async def on_relationship_remove(self, friendship):
-        util.log(f"A friend was removed: [bold]{friendship.user.display_name}#{friendship.user.discriminator}[/bold].")
+        util.log(f"A friend was removed: [bold]{friendship.user.name}[/bold].")
     

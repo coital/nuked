@@ -12,9 +12,9 @@ class OnRelationshipAdd(commands.Cog):
     async def on_relationship_add(self, friendship: discord.Relationship):
         match friendship.type:
             case discord.RelationshipType.incoming_request:
-                util.log(f"Incoming friend request from [bold]{friendship.user.display_name}#{friendship.user.discriminator}[/bold].")
+                util.log(f"Incoming friend request from [bold]{friendship.user.name}[/bold].")
             case discord.RelationshipType.outgoing_request:
-                util.log(f"Outgoing friend request to [bold]{friendship.user.display_name}#{friendship.user.discriminator}[/bold].")
+                util.log(f"Outgoing friend request to [bold]{friendship.user.name}[/bold].")
             case discord.RelationshipType.friend:
-                util.log(f"A new friend was added: [bold]{friendship.user.display_name}#{friendship.user.discriminator}[/bold].")
+                util.log(f"A new friend was added: [bold]{friendship.user.name}[/bold].")
     
