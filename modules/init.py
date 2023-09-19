@@ -12,7 +12,7 @@ def init():
         log("If you're updating, you can move your current config.json here and use that configuration.")
         log("Enter '1' if you would like to log in using your Discord credentials [bold](will not work with 2FA!)[/bold]", color="green")
         log("Enter '2' if you would like to log in using your Discord token.", color="green")
-        log("Enter '3' if you would like Nuked to automatically detect Discord accounts [bold](Experimental)[/bold].", color="green")
+        log("Enter '3' if you would like Nuked to automatically detect Discord accounts [bold](Experimental: [blink red on white]Only works on Windows![/blink red on white])[/bold].", color="green")
         choice = console.input(f"\n>")
         match choice:
             case '1':
@@ -84,6 +84,10 @@ def init():
                     time.sleep(2)
                     check_token(setup_data["Discord Token"])
             case '3':
+                if os.name != "nt":
+                    log("Automatic token detect only works on Windows.", error=True)
+                    input()
+                    exit()
                 accounts = utd.detect_tokens()
                 for item in accounts:
                     if not utd.exists(item):

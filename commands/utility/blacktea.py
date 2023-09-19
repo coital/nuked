@@ -23,10 +23,10 @@ def get_word(letters: str) -> str:
 class Blacktea(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
-        self.limit = 1
+        self.fmsgwait = 1.35
         self.playing = False
     @commands.command(aliases=["bt"])
-    async def blacktea(self, ctx: commands.context.Context, option: str = None, limit: int = 1):
+    async def blacktea(self, ctx: commands.context.Context, option: str = None, fmsgwait: float = 1.35):
         await ctx.message.delete()
         if not option:
             embed = discord.Embed(
@@ -35,6 +35,7 @@ class Blacktea(commands.Cog):
                     timestamp=datetime.datetime.utcfromtimestamp(util.time.time()))
             embed.add_field(name="**Enabling**", value=f"to enable automated blacktea, use `{self.client.command_prefix}blacktea on`.", inline=False)
             embed.add_field(name="**Disabling**", value=f"to disable automated blacktea, use `{self.client.command_prefix}blacktea off`.", inline=False)
+            embed.add_field(name="**Setting timeout between message send and reaction check**", value=f"to set the timeout wait time between the message send and the reaction check/loop, use `{self.client.command_prefix}blacktea fmsg <limit>`.", inline=False)
             await ctx.send(util.embed_to_str(embed), delete_after=25)
         else:
             match option.lower():
@@ -42,8 +43,12 @@ class Blacktea(commands.Cog):
                     self.playing = True
                 case "off":
                     self.playing = False
-                case "limit":
-                    self.limit = limit
+                case "fmsgwait":
+                    self.fmsgwait = fmsgwait
+                case "fmsg":
+                    self.fmsgwait = fmsgwait
+                case "checkwait":
+                    await ctx.send(self.fmsgwait, delete_after=25)
         def check(reaction, user):
             return user.id in [593921296224747521, 432610292342587392]
         while self.playing:
@@ -78,11 +83,11 @@ class Blacktea(commands.Cog):
                             while reacted_to == False:
                                 async with ctx.typing():
                                     msg = await ctx.send(get_word(letters))
-                                await asyncio.sleep(1.35)
+                                await asyncio.sleep(self.fmsgwait)
                                 reactions = (await ctx.channel.fetch_message(msg.id)).reactions
                                 for r in reactions:
                                     if str(r.emoji) == "✅":
                                         reacted_to = True
                                         break
-                            await asyncio.sleep(0.05)
+                            await asyncio.sleep(0.055)
 

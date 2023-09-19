@@ -26,15 +26,15 @@ class Backup(commands.Cog):
                     if not os.path.isdir("./backups/"):
                         os.mkdir("backups")
                     with open("friend-backup.txt", "a", encoding="utf-8") as f:
-                        f.write(f"Backup for user {self.client.user.display_name}#{self.client.user.discriminator}\nFriend Count: {len(self.client.user.friends)}\nServer Count: {len(self.client.guilds)}\nBackup Date: {datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')}\n")
-                        for friend in self.client.user.friends:
-                            f.write(f"\nFriend:\n{friend.name}#{friend.discriminator}\nID:\n{friend.id}\n")
-                            util.log(f"Backed up friend: {friend.name}#{friend.discriminator}")
+                        f.write(f"Backup for user {self.client.user.display_name}\nFriend Count: {len(self.client.friends)}\nServer Count: {len(self.client.guilds)}\nBackup Date: {datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')}\n")
+                        for friend in self.client.friends:
+                            f.write(f"\nFriend:\n{friend.user.name}\nID:\n{friend.user.id}\n")
+                            util.log(f"Backed up friend: {friend.user.name}")
                 case "servers":
                     if not os.path.isdir("./backups/"):
                         os.mkdir("backups")
                     with open("backups/server-backup.txt", "a", encoding="utf-8") as f:
-                        f.write(f"Backup for user {self.client.user.display_name}#{self.client.user.discriminator}\nFriend Count: {len(self.client.user.friends)}\nServer Count: {len(self.client.guilds)}\nBackup Date: {datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')}\n")
+                        f.write(f"Backup for user {self.client.user.display_name}\nFriend Count: {len(self.client.friends)}\nServer Count: {len(self.client.guilds)}\nBackup Date: {datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')}\n")
                         for guild in self.client.guilds:
                             f.write(f'\nServer:\n{guild.name}\nID:\n{guild.id}\nOwner ID: {guild.owner_id}\n')
                             util.log(f"Backed up guild: {guild.name}")
@@ -42,10 +42,10 @@ class Backup(commands.Cog):
                     if not os.path.isdir("./backups/"):
                         os.mkdir("backups")
                     with open("backups/full-backup.txt", "a", encoding="utf-8") as f:
-                        f.write(f"Backup for user {self.client.user.display_name}#{self.client.user.discriminator}\nFriend Count: {len(self.client.user.friends)}\nServer Count: {len(self.client.guilds)}\nBackup Date: {datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')}\n")
-                        for friend in self.client.user.friends:
-                            f.write(f"\nFriend:\n{friend.name}#{friend.discriminator}\nID:\n{friend.id}\n")
-                            util.log(f"Backed up friend: {friend.name}#{friend.discriminator}")
+                        f.write(f"Backup for user {self.client.user.display_name}\nFriend Count: {len(self.client.friends)}\nServer Count: {len(self.client.guilds)}\nBackup Date: {datetime.datetime.now().strftime('%m/%d/%Y, %H:%M:%S %p')}\n")
+                        for friend in self.client.friends:
+                            f.write(f"\nFriend:\n{friend.user.name}\nID:\n{friend.user.id}\n")
+                            util.log(f"Backed up friend: {friend.user.name}")
                         for guild in self.client.guilds:
                             f.write(f'\nServer:\n{guild.name}\nID:\n{guild.id}\nOwner ID: {guild.owner_id}\n')
                             util.log(f"Backed up guild: {guild.name}")

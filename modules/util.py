@@ -179,31 +179,29 @@ def enable_light_mode() -> dict:
 def presplash():
     for letter in "Welcome":
         console.print(letter, justify="center")
-        time.sleep(0.1)
+        time.sleep(0.155)
     clear()
 
 def splash():
-    cinit(convert=True)
     clear()
     with open("./config.json") as f:
         config = json.load(f)
     functions = [fade.purpleblue]
     if config["Random Splash Color"]:
         functions = [fade.fire, fade.greenblue, fade.water, fade.pinkred]
-    splash = random.choice(functions)("""                      
+    cinit(convert=True)
+    splash = random.choice(functions)("""
                  ███╗   ██╗██╗   ██╗██╗  ██╗███████╗██████╗
                  ████╗  ██║██║   ██║██║ ██╔╝██╔════╝██╔══██╗
                  ██╔██╗ ██║██║   ██║█████╔╝ █████╗  ██║  ██║
                  ██║╚██╗██║██║   ██║██╔═██╗ ██╔══╝  ██║  ██║
                  ██║ ╚████║╚██████╔╝██║  ██╗███████╗██████╔╝
-                 ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ 
-    """)
+                 ╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝""")
     console.print(splash, justify="center", end="")
-    console.print(f"{version}\n", justify="center", style="reset")
+    deinit()
     r = requests.get("https://raw.githubusercontent.com/coital/nuked/main/motd?v=1")
     if r.status_code in (200, 204):
-        console.print(f"MOTD: [bold]{r.text}[/]\n", justify="center")
-    deinit()
+        console.print(f"[green]MOTD[/green]: [bold]{r.text}[/]\n", justify="center")
 def log(content: str, color="cyan", error=False):
     console.print(f"\n[reset][{'red' if error else color}][bright][{get_time()}][/bright][/{'red' if error else color}] {content}[/reset]")
 

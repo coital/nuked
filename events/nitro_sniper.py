@@ -16,8 +16,7 @@ class NitroSniper(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.client = bot
     @commands.Cog.listener("on_message")
-    async def nitrosnipe(self, message: discord.Message):
-        init(convert=True)
+    async def nitro_sniper(self, message: discord.Message):
         if "discord.gift/" in message.content:
             if nitrosniper:
                 code = re.search("discord.gift/(.*)", message.content).group(1)
@@ -48,5 +47,5 @@ class NitroSniper(commands.Cog):
                                 Fore.CYAN + f"\n[{util.get_time()}] {Fore.RESET}An unknown error occurred when sniping the code sent by {message.author} in {message.guild.name if message.guild else 'DMs'}: {Style.DIM}{code}{Style.RESET_ALL}. ({math.floor((end - start) * 1000)} ms)")
                             print(text)
                         await session.close()
-        deinit()
-                
+        else:
+            print(message.content)        
